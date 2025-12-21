@@ -99,14 +99,11 @@ struct TerminalView: View {
         index == currentLineIndex
     }
 
-    private func terminalLine(text: String, showCursor: Bool) -> some View {
-        HStack(spacing: 0) {
-            Text(text)
-            if showCursor {
-                Text("█")
-                    .opacity(cursorVisible ? 1 : 0)
-            }
-        }
+    private func terminalLine(text: String, showCursor: Bool) -> Text {
+        let textContent = Text(text)
+        guard showCursor else { return textContent }
+        let cursor = Text("█").foregroundStyle(.primary.opacity(cursorVisible ? 1 : 0))
+        return textContent + cursor
     }
 
     @MainActor

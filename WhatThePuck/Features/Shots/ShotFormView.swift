@@ -16,6 +16,7 @@ struct ShotFormView: View {
     @State private var timeInSeconds: Double = 28.0
     @State private var grindSetting: Int = 15
     @State private var notes: String = ""
+    @State private var rating: ShotRating = .good
 
     private var isEditing: Bool { shotToEdit != nil }
     private var navigationTitle: String { isEditing ? "Edit Shot" : "Log Shot" }
@@ -76,6 +77,15 @@ struct ShotFormView: View {
                             .multilineTextAlignment(.trailing)
                             .frame(width: 60)
                     }
+                }
+
+                Section("Rating") {
+                    Picker("Rating", selection: $rating) {
+                        ForEach(ShotRating.allCases, id: \.self) { ratingOption in
+                            Text(ratingOption.displayName).tag(ratingOption)
+                        }
+                    }
+                    .pickerStyle(.segmented)
                 }
 
                 Section("Notes") {
@@ -147,6 +157,7 @@ struct ShotFormView: View {
         timeInSeconds = Double(shot.timeSeconds) / 10.0
         grindSetting = shot.grindSetting
         notes = shot.notes
+        rating = shot.rating ?? .good
     }
 
     @MainActor
@@ -162,6 +173,7 @@ struct ShotFormView: View {
             existingShot.grindSetting = grindSetting
             existingShot.notes = notes
             existingShot.bean = bean
+            existingShot.rating = rating
         } else {
             let shot = Shot(
                 doseGrams: doseGrams,
@@ -169,7 +181,8 @@ struct ShotFormView: View {
                 timeSeconds: timeAsTenths,
                 grindSetting: grindSetting,
                 notes: notes,
-                bean: bean
+                bean: bean,
+                rating: rating
             )
             modelContext.insert(shot)
         }

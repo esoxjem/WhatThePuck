@@ -20,6 +20,7 @@
 		606476662EF7E0CE006CE6FB /* WhatThePuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatThePuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		606476802EF7E8F0006CE6FB /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
 		6064768E2EF80000006CE6FB /* WhatThePuckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhatThePuckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		60FD1D522EF885AA008A801D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -56,6 +57,7 @@
 		6064765D2EF7E0CE006CE6FB = {
 			isa = PBXGroup;
 			children = (
+				60FD1D522EF885AA008A801D /* README.md */,
 				606476802EF7E8F0006CE6FB /* CLAUDE.md */,
 				606476682EF7E0CE006CE6FB /* WhatThePuck */,
 				6064768F2EF80000006CE6FB /* WhatThePuckTests */,

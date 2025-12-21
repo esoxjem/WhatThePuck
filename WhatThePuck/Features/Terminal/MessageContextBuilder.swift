@@ -62,7 +62,12 @@ enum MessageContextBuilder {
     }
 
     private static func checkIsFirstDialedIn(shots: [Shot]) -> Bool {
-        shots.filter { $0.rating == .dialedIn }.count == 1
+        guard let mostRecentShot = shots.first,
+              mostRecentShot.rating == .dialedIn else {
+            return false
+        }
+        let previousDialedInCount = shots.dropFirst().filter { $0.rating == .dialedIn }.count
+        return previousDialedInCount == 0
     }
 
     private static func convertToISOWeekday(_ calendarWeekday: Int) -> Int {

@@ -209,35 +209,70 @@ struct MessageContextBuilderTests {
         #expect(context.consecutiveBadShots == 0)
     }
 
-    @Test("isFirstDialedIn is true when exactly one dialed_in shot")
-    func isFirstDialedInTrueWhenOne() {
+    @Test("isFirstDialedIn is true when most recent shot is first dialed_in")
+    func isFirstDialedInTrueWhenMostRecentIsFirstDialedIn() {
+        let calendar = makeCalendar()
+        let now = Date.now
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: now)!
+
         let bean = makeBean()
         let shots = [
-            makeShot(bean: bean, rating: .good),
-            makeShot(bean: bean, rating: .dialedIn),
-            makeShot(bean: bean, rating: .bad)
+            makeShot(bean: bean, date: now, rating: .dialedIn),
+            makeShot(bean: bean, date: hourAgo, rating: .good)
         ]
 
         let context = MessageContextBuilder.buildContext(
             from: shots,
             beans: [bean],
-            activeBean: bean
+            activeBean: bean,
+            currentDate: now,
+            calendar: calendar
         )
         #expect(context.isFirstDialedIn == true)
     }
 
-    @Test("isFirstDialedIn is false when multiple dialed_in shots")
-    func isFirstDialedInFalseWhenMultiple() {
+    @Test("isFirstDialedIn is false when most recent is not dialed_in")
+    func isFirstDialedInFalseWhenMostRecentNotDialedIn() {
+        let calendar = makeCalendar()
+        let now = Date.now
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: now)!
+
         let bean = makeBean()
         let shots = [
-            makeShot(bean: bean, rating: .dialedIn),
-            makeShot(bean: bean, rating: .dialedIn)
+            makeShot(bean: bean, date: now, rating: .good),
+            makeShot(bean: bean, date: hourAgo, rating: .dialedIn)
         ]
 
         let context = MessageContextBuilder.buildContext(
             from: shots,
             beans: [bean],
-            activeBean: bean
+            activeBean: bean,
+            currentDate: now,
+            calendar: calendar
+        )
+        #expect(context.isFirstDialedIn == false)
+    }
+
+    @Test("isFirstDialedIn is false when most recent is dialed_in but had previous dialed_in")
+    func isFirstDialedInFalseWhenNotFirstDialedIn() {
+        let calendar = makeCalendar()
+        let now = Date.now
+        let hourAgo = calendar.date(byAdding: .hour, value: -1, to: now)!
+        let dayAgo = calendar.date(byAdding: .day, value: -1, to: now)!
+
+        let bean = makeBean()
+        let shots = [
+            makeShot(bean: bean, date: now, rating: .dialedIn),
+            makeShot(bean: bean, date: hourAgo, rating: .bad),
+            makeShot(bean: bean, date: dayAgo, rating: .dialedIn)
+        ]
+
+        let context = MessageContextBuilder.buildContext(
+            from: shots,
+            beans: [bean],
+            activeBean: bean,
+            currentDate: now,
+            calendar: calendar
         )
         #expect(context.isFirstDialedIn == false)
     }

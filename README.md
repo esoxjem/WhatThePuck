@@ -1,6 +1,6 @@
 # WhatThePuck
 
-A minimal espresso shot tracker for the obsessive home barista.
+A minimal espresso shot tracker iOS app for the obsessive home barista.
 
 Track your shots. Dial in your beans. Chase the god shot.
 

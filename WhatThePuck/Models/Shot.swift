@@ -11,6 +11,7 @@ class Shot {
     var notes: String
     var bean: Bean
     var isFavorite: Bool = false
+    var rating: ShotRating?
 
     var ratio: Double {
         guard doseGrams > 0 else { return 0 }
@@ -33,7 +34,8 @@ class Shot {
         grindSetting: Int,
         notes: String = "",
         bean: Bean,
-        isFavorite: Bool = false
+        isFavorite: Bool = false,
+        rating: ShotRating? = nil
     ) {
         self.date = date
         self.doseGrams = doseGrams
@@ -43,5 +45,6 @@ class Shot {
         self.notes = notes
         self.bean = bean
         self.isFavorite = isFavorite
+        self.rating = rating
     }
 }

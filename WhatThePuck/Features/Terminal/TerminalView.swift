@@ -3,6 +3,7 @@ import SwiftUI
 enum TerminalContent {
     case onboarding(hasBeans: Bool)
     case beanContext(bean: Bean)
+    case contextualMessage(lines: [String])
 
     var lines: [String] {
         switch self {
@@ -10,6 +11,8 @@ enum TerminalContent {
             return buildOnboardingLines(hasBeans: hasBeans)
         case .beanContext(let bean):
             return buildBeanContextLines(for: bean)
+        case .contextualMessage(let lines):
+            return lines
         }
     }
 
@@ -17,6 +20,7 @@ enum TerminalContent {
         switch self {
         case .onboarding: return 0.06
         case .beanContext: return 0.04
+        case .contextualMessage: return 0.05
         }
     }
 

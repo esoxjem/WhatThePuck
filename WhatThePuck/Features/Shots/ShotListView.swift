@@ -6,7 +6,6 @@ struct ShotListView: View {
     @Query(sort: \Shot.date, order: .reverse) private var shots: [Shot]
     @Query(sort: \Bean.createdAt, order: .reverse) private var beans: [Bean]
 
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var showingAddShotSheet = false
     @State private var showingAddBeanSheet = false
     @State private var shotToEdit: Shot?
@@ -116,13 +115,15 @@ struct ShotListView: View {
 
     @ViewBuilder
     private var terminalForCurrentState: some View {
-        if hasCompletedOnboarding, let activeBean = beans.first {
-            TerminalView(content: .beanContext(bean: activeBean))
-                .id("beanContext-\(activeBean.id)")
-        } else {
-            TerminalView(content: .onboarding(hasBeans: !beans.isEmpty))
-                .id("onboarding")
-        }
+        let context = MessageContextBuilder.buildContext(
+            from: shots,
+            beans: beans,
+            activeBean: beans.first
+        )
+        let message = MessageEngineProvider.shared.getMessage(context: context)
+        let lines = message.components(separatedBy: "\n")
+        TerminalView(content: .contextualMessage(lines: lines))
+            .id("contextual-\(shots.count)-\(beans.count)")
     }
 
     private var emptyStateFilterDescription: String {
@@ -134,6 +135,12 @@ struct ShotListView: View {
 
     private var shotsList: some View {
         List {
+            Section {
+                terminalForCurrentState
+            }
+            .listRowBackground(Color.clear)
+            .listRowInsets(EdgeInsets())
+
             ForEach(groupedByDate, id: \.0) { date, dayShots in
                 Section(header: Text(formatDate(date))) {
                     ForEach(dayShots) { shot in

@@ -12,6 +12,12 @@ xcodebuild -project WhatThePuck.xcodeproj -scheme WhatThePuck -destination 'plat
 
 # Build for device (requires signing)
 xcodebuild -project WhatThePuck.xcodeproj -scheme WhatThePuck -destination generic/platform=iOS build
+
+# Run all tests
+xcodebuild -project WhatThePuck.xcodeproj -scheme WhatThePuck -destination 'platform=iOS Simulator,name=iPhone 17' test
+
+# Run a single test file (e.g., ShotTests)
+xcodebuild -project WhatThePuck.xcodeproj -scheme WhatThePuck -destination 'platform=iOS Simulator,name=iPhone 17' test -only-testing:WhatThePuckTests/ShotTests
 ```
 
 ## Architecture
@@ -33,6 +39,9 @@ WhatThePuck/
 ├── Models/                 # SwiftData models
 │   ├── Bean.swift
 │   └── Shot.swift
+├── Utilities/              # Shared utilities
+│   ├── TimerTick.swift    # AsyncStream for timer ticks
+│   └── CursorBlink.swift  # AsyncStream for cursor animation
 └── Navigation/             # Tab navigation
     └── MainTabView.swift
 ```
@@ -57,6 +66,8 @@ WhatThePuck/
 - Computed properties on models for display formatting
 - Sheet presentation for forms with `@Environment(\.dismiss)` for closing
 - Feature-based modularization for code organization
+- Async timers use `AsyncStream` pattern (see `TimerTick`, `CursorBlink`)
+- Tests use Swift Testing framework (`@Test`, `@Suite`, `#expect`)
 
 ## Requirements
 

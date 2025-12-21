@@ -1,0 +1,462 @@
+{
+  "version": 2,
+  "fallbackPoolId": "general",
+  "conditionTypes": {
+    "shot_count": "Total shots logged by user",
+    "days_since_last_shot": "Days since last recorded shot",
+    "streak_days": "Current consecutive days with shots",
+    "last_shot_rating": "Rating of most recent shot (dialed_in | good | bad)",
+    "consecutive_bad_shots": "Number of consecutive poorly rated shots",
+    "first_dialed_in": "True if user just achieved first dialed_in rating",
+    "hour": "Current hour (0-23)",
+    "day_of_week": "Current day (1=Monday, 7=Sunday)",
+    "month": "Current month (1-12)",
+    "always": "Always matches (for fallback)",
+    "bean_count": "Total beans added by user"
+  },
+  "operators": ["eq", "neq", "gt", "gte", "lt", "lte", "between", "in"],
+  "rules": [
+    {
+      "id": "onboarding_no_beans",
+      "priority": 110,
+      "condition": {
+        "and": [
+          { "type": "bean_count", "operator": "eq", "value": 0 },
+          { "type": "shot_count", "operator": "eq", "value": 0 }
+        ]
+      },
+      "messages": [
+        "Welcome to espresso hell.\nLet's add your coffee beans."
+      ]
+    },
+    {
+      "id": "onboarding_has_beans",
+      "priority": 105,
+      "condition": {
+        "and": [
+          { "type": "bean_count", "operator": "gt", "value": 0 },
+          { "type": "shot_count", "operator": "eq", "value": 0 }
+        ]
+      },
+      "messages": [
+        "{{bean.displayName}} loaded.\n{{bean.roastAge}}\nPull your first shot."
+      ]
+    },
+    {
+      "id": "first_shot",
+      "priority": 100,
+      "condition": {
+        "type": "shot_count",
+        "operator": "eq",
+        "value": 0
+      },
+      "messages": [
+        "Shot #1. The journey begins.",
+        "Welcome. Every expert was once a beginner with a bottomless portafilter."
+      ]
+    },
+    {
+      "id": "shot_10",
+      "priority": 95,
+      "condition": {
+        "type": "shot_count",
+        "operator": "eq",
+        "value": 10
+      },
+      "messages": [
+        "Double digits. You're not just curious anymore."
+      ]
+    },
+    {
+      "id": "shot_50",
+      "priority": 95,
+      "condition": {
+        "type": "shot_count",
+        "operator": "eq",
+        "value": 50
+      },
+      "messages": [
+        "50 shots logged. You've probably wasted less coffee than most people ever dial in."
+      ]
+    },
+    {
+      "id": "shot_100",
+      "priority": 95,
+      "condition": {
+        "type": "shot_count",
+        "operator": "eq",
+        "value": 100
+      },
+      "messages": [
+        "Triple digits. You've earned your opinions about grinders.",
+        "100 shots. Your palate is not the problem anymore."
+      ]
+    },
+    {
+      "id": "shot_500",
+      "priority": 95,
+      "condition": {
+        "type": "shot_count",
+        "operator": "eq",
+        "value": 500
+      },
+      "messages": [
+        "500. At this point, you're basically doing R&D."
+      ]
+    },
+    {
+      "id": "first_dialed_in",
+      "priority": 90,
+      "condition": {
+        "type": "first_dialed_in",
+        "operator": "eq",
+        "value": true
+      },
+      "messages": [
+        "First dial-in. Screenshot this feeling."
+      ]
+    },
+    {
+      "id": "comeback_30_plus",
+      "priority": 85,
+      "condition": {
+        "type": "days_since_last_shot",
+        "operator": "gte",
+        "value": 30
+      },
+      "messages": [
+        "Long time. New bag, clean slate.",
+        "Back from the dead. Respect the rust."
+      ]
+    },
+    {
+      "id": "comeback_7_to_29",
+      "priority": 80,
+      "condition": {
+        "type": "days_since_last_shot",
+        "operator": "between",
+        "value": [7, 29]
+      },
+      "messages": [
+        "A week away. Beans have probably degassed. Start fresh.",
+        "The puck doesn't hold grudges. Let's go."
+      ]
+    },
+    {
+      "id": "comeback_3_to_6",
+      "priority": 75,
+      "condition": {
+        "type": "days_since_last_shot",
+        "operator": "between",
+        "value": [3, 6]
+      },
+      "messages": [
+        "Been a few days. The grinder missed you.",
+        "Welcome back. Let's recalibrate."
+      ]
+    },
+    {
+      "id": "streak_30",
+      "priority": 70,
+      "condition": {
+        "type": "streak_days",
+        "operator": "gte",
+        "value": 30
+      },
+      "messages": [
+        "30 days. You're not chasing the god shot. You're just showing up."
+      ]
+    },
+    {
+      "id": "streak_7",
+      "priority": 65,
+      "condition": {
+        "type": "streak_days",
+        "operator": "eq",
+        "value": 7
+      },
+      "messages": [
+        "A full week. Your muscle memory is forming."
+      ]
+    },
+    {
+      "id": "streak_3",
+      "priority": 60,
+      "condition": {
+        "type": "streak_days",
+        "operator": "eq",
+        "value": 3
+      },
+      "messages": [
+        "3 days running. Consistency is a variable too."
+      ]
+    },
+    {
+      "id": "last_shot_dialed_in",
+      "priority": 55,
+      "condition": {
+        "type": "last_shot_rating",
+        "operator": "eq",
+        "value": "dialed_in"
+      },
+      "messages": [
+        "Locked in. Repeat it or ride the high.",
+        "Yesterday's shot was gold. Now prove it wasn't luck."
+      ]
+    },
+    {
+      "id": "bad_streak",
+      "priority": 55,
+      "condition": {
+        "type": "consecutive_bad_shots",
+        "operator": "gte",
+        "value": 3
+      },
+      "messages": [
+        "Rough stretch. Try 1 click coarser. Or finer. Chaos is a ladder.",
+        "Sink shots build character.",
+        "Still here after 3 bad ones? That's the mentality."
+      ]
+    },
+    {
+      "id": "monday_morning",
+      "priority": 35,
+      "condition": {
+        "and": [
+          { "type": "day_of_week", "operator": "eq", "value": 1 },
+          { "type": "hour", "operator": "between", "value": [6, 11] }
+        ]
+      },
+      "messages": [
+        "Monday morning. The most important shot of the week.",
+        "Monday, 9am energy. Let the espresso do the talking.",
+        "Start the week with a clean puck and low expectations."
+      ]
+    },
+    {
+      "id": "friday_evening",
+      "priority": 35,
+      "condition": {
+        "and": [
+          { "type": "day_of_week", "operator": "eq", "value": 5 },
+          { "type": "hour", "operator": "gte", "value": 17 }
+        ]
+      },
+      "messages": [
+        "Friday night espresso. You've earned the chaos.",
+        "End of week. Experimental shots allowed."
+      ]
+    },
+    {
+      "id": "weekend_morning",
+      "priority": 35,
+      "condition": {
+        "and": [
+          { "type": "day_of_week", "operator": "in", "value": [6, 7] },
+          { "type": "hour", "operator": "between", "value": [6, 11] }
+        ]
+      },
+      "messages": [
+        "Weekend morning. The sacred window.",
+        "No alarms. No rushing. Just dialing in.",
+        "Saturday coffee is a ritual, not a task."
+      ]
+    },
+    {
+      "id": "winter_morning",
+      "priority": 32,
+      "condition": {
+        "and": [
+          { "type": "month", "operator": "in", "value": [12, 1, 2] },
+          { "type": "hour", "operator": "between", "value": [6, 11] }
+        ]
+      },
+      "messages": [
+        "Cold morning. The machine takes longer to warm. So do you.",
+        "Winter mornings were made for espresso."
+      ]
+    },
+    {
+      "id": "summer_afternoon",
+      "priority": 32,
+      "condition": {
+        "and": [
+          { "type": "month", "operator": "in", "value": [6, 7, 8] },
+          { "type": "hour", "operator": "between", "value": [12, 17] }
+        ]
+      },
+      "messages": [
+        "Hot afternoon. Consider the iced shot.",
+        "Summer siesta espresso. Respect."
+      ]
+    },
+    {
+      "id": "streak_and_dialed_in",
+      "priority": 72,
+      "condition": {
+        "and": [
+          { "type": "streak_days", "operator": "gte", "value": 7 },
+          { "type": "last_shot_rating", "operator": "eq", "value": "dialed_in" }
+        ]
+      },
+      "messages": [
+        "Week-long streak AND dialed in? You're dangerous.",
+        "Consistency meets precision. This is the way."
+      ]
+    },
+    {
+      "id": "veteran_bad_streak",
+      "priority": 58,
+      "condition": {
+        "and": [
+          { "type": "shot_count", "operator": "gte", "value": 100 },
+          { "type": "consecutive_bad_shots", "operator": "gte", "value": 3 }
+        ]
+      },
+      "messages": [
+        "100+ shots and still getting humbled. Espresso doesn't care about experience.",
+        "Veterans have bad days too. New bag?"
+      ]
+    },
+    {
+      "id": "time_early_morning",
+      "priority": 30,
+      "condition": {
+        "type": "hour",
+        "operator": "between",
+        "value": [0, 5]
+      },
+      "messages": [
+        "The world's asleep. Your grinder isn't.",
+        "Premarket espresso. Respect.",
+        "Dawn patrol. Let's make it count."
+      ]
+    },
+    {
+      "id": "time_morning",
+      "priority": 30,
+      "condition": {
+        "type": "hour",
+        "operator": "between",
+        "value": [6, 11]
+      },
+      "messages": [
+        "Peak espresso hours. No pressure.",
+        "Morning light, fresh beans, good odds.",
+        "The day is young. So is this puck."
+      ]
+    },
+    {
+      "id": "time_afternoon",
+      "priority": 30,
+      "condition": {
+        "type": "hour",
+        "operator": "between",
+        "value": [12, 17]
+      },
+      "messages": [
+        "Afternoon shot? You know what you're about.",
+        "Post-lunch espresso is a lifestyle choice. Good one.",
+        "The 2pm shot separates hobbyists from addicts."
+      ]
+    },
+    {
+      "id": "time_evening",
+      "priority": 30,
+      "condition": {
+        "type": "hour",
+        "operator": "between",
+        "value": [18, 23]
+      },
+      "messages": [
+        "Evening espresso. Sleep is a social construct anyway.",
+        "Bold move pulling shots after sunset.",
+        "Night owl, meet naked portafilter."
+      ]
+    },
+    {
+      "id": "day_monday",
+      "priority": 25,
+      "condition": {
+        "type": "day_of_week",
+        "operator": "eq",
+        "value": 1
+      },
+      "messages": [
+        "Monday. The beans understand.",
+        "Start the week dialed in."
+      ]
+    },
+    {
+      "id": "day_friday",
+      "priority": 25,
+      "condition": {
+        "type": "day_of_week",
+        "operator": "eq",
+        "value": 5
+      },
+      "messages": [
+        "Friday shot. Make it celebratory.",
+        "Weekend's calling. One more dial-in first."
+      ]
+    },
+    {
+      "id": "day_weekend",
+      "priority": 25,
+      "condition": {
+        "type": "day_of_week",
+        "operator": "in",
+        "value": [6, 7]
+      },
+      "messages": [
+        "Weekend pace. No rush, just extraction.",
+        "No meetings. Just channeling to fix."
+      ]
+    },
+    {
+      "id": "season_winter",
+      "priority": 20,
+      "condition": {
+        "type": "month",
+        "operator": "in",
+        "value": [12, 1, 2]
+      },
+      "messages": [
+        "Cold hands, hot portafilter.",
+        "Winter espresso hits different.",
+        "Short days call for short shots."
+      ]
+    },
+    {
+      "id": "season_summer",
+      "priority": 20,
+      "condition": {
+        "type": "month",
+        "operator": "in",
+        "value": [6, 7, 8]
+      },
+      "messages": [
+        "Humid? Watch your grind creep finer.",
+        "Summer beans, summer adjustments."
+      ]
+    },
+    {
+      "id": "general",
+      "priority": 0,
+      "condition": {
+        "type": "always",
+        "operator": "eq",
+        "value": true
+      },
+      "messages": [
+        "Grind. Dose. Tamp. Truth.",
+        "The perfect shot is a hypothesis.",
+        "Espresso is just applied thermodynamics.",
+        "Every variable is a lever. Pull wisely.",
+        "Trust the process. Adjust the grind.",
+        "You're not over-extracting. You're learning.",
+        "Somewhere, a WDT tool is waiting."
+      ]
+    }
+  ]
+}

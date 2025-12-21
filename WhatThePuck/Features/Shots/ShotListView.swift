@@ -176,6 +176,7 @@ struct ShotListView: View {
         }
     }
 
+    @MainActor
     private func deleteShots(dayShots: [Shot], at offsets: IndexSet) {
         for index in offsets {
             modelContext.delete(dayShots[index])

@@ -4,7 +4,7 @@ import SwiftData
 struct TimerView: View {
     @State private var elapsedTenths: Int = 0
     @State private var isRunning = false
-    @State private var timer: Timer?
+    @State private var timerTask: Task<Void, Never>?
     @State private var showingSaveSheet = false
 
     var body: some View {
@@ -100,15 +100,18 @@ struct TimerView: View {
 
     private func startTimer() {
         isRunning = true
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-            elapsedTenths += 1
+        timerTask = Task { @MainActor in
+            for await _ in TimerTick.everyTenthSecond() {
+                guard isRunning else { break }
+                elapsedTenths += 1
+            }
         }
     }
 
     private func stopTimer() {
         isRunning = false
-        timer?.invalidate()
-        timer = nil
+        timerTask?.cancel()
+        timerTask = nil
     }
 
     private func resetTimer() {

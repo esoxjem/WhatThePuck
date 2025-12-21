@@ -54,8 +54,6 @@ struct TerminalView: View {
     @State private var characterIndex = 0
     @State private var phase = TerminalPhase.typing
     @State private var cursorVisible = true
-    @State private var animationTimer: Timer?
-    @State private var cursorTimer: Timer?
 
     init(content: TerminalContent) {
         self.content = content
@@ -75,13 +73,8 @@ struct TerminalView: View {
         .padding(.horizontal, 20)
         .padding(.top, 40)
         .font(.system(.subheadline, design: .monospaced))
-        .onAppear {
-            startCursorBlink()
-            startAnimation()
-        }
-        .onDisappear {
-            stopTimers()
-        }
+        .task { await runCursorBlink() }
+        .task { await runTypewriterAnimation() }
         .onChange(of: content.lines.count) { oldCount, newCount in
             handleLineCountChange(from: oldCount, to: newCount)
         }
@@ -92,7 +85,6 @@ struct TerminalView: View {
         displayedLines.append(contentsOf: Array(repeating: "", count: newCount - oldCount))
         guard phase == .complete else { return }
         phase = .pauseBetweenLines
-        scheduleNextCharacter()
     }
 
     private var visibleLineCount: Int {
@@ -113,78 +105,71 @@ struct TerminalView: View {
         }
     }
 
-    private func startCursorBlink() {
-        cursorTimer = Timer.scheduledTimer(withTimeInterval: 0.53, repeats: true) { _ in
-            cursorVisible.toggle()
+    @MainActor
+    private func runCursorBlink() async {
+        for await visible in CursorBlink.stream() {
+            cursorVisible = visible
         }
     }
 
-    private func startAnimation() {
-        scheduleNextCharacter()
-    }
-
-    private func scheduleNextCharacter() {
-        let interval = intervalForCurrentPhase()
-        animationTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
+    @MainActor
+    private func runTypewriterAnimation() async {
+        while !Task.isCancelled {
+            guard phase != .complete else {
+                try? await Task.sleep(for: .milliseconds(100))
+                continue
+            }
+            let sleepDuration = durationForCurrentPhase()
+            try? await Task.sleep(for: sleepDuration)
             advanceAnimation()
         }
     }
 
-    private func intervalForCurrentPhase() -> TimeInterval {
+    private func durationForCurrentPhase() -> Duration {
         switch phase {
         case .typing:
-            return content.characterDelay
+            return .milliseconds(Int(content.characterDelay * 1000))
         case .pauseBetweenLines:
-            return 1.0
+            return .seconds(1)
         case .complete:
-            return 0
+            return .zero
         }
     }
 
     private func advanceAnimation() {
         switch phase {
         case .typing:
-            typeCurrentLine()
+            typeNextCharacter()
         case .pauseBetweenLines:
-            moveToNextLine()
+            advanceToNextLine()
         case .complete:
             return
         }
     }
 
-    private func typeCurrentLine() {
+    private func typeNextCharacter() {
         let currentLine = content.lines[currentLineIndex]
-        if characterIndex < currentLine.count {
-            let index = currentLine.index(currentLine.startIndex, offsetBy: characterIndex)
-            displayedLines[currentLineIndex].append(currentLine[index])
-            characterIndex += 1
-            scheduleNextCharacter()
-        } else {
+        guard characterIndex < currentLine.count else {
             finishCurrentLine()
+            return
         }
+        let index = currentLine.index(currentLine.startIndex, offsetBy: characterIndex)
+        displayedLines[currentLineIndex].append(currentLine[index])
+        characterIndex += 1
     }
 
     private func finishCurrentLine() {
         if currentLineIndex < content.lines.count - 1 {
             phase = .pauseBetweenLines
             characterIndex = 0
-            scheduleNextCharacter()
         } else {
             phase = .complete
         }
     }
 
-    private func moveToNextLine() {
+    private func advanceToNextLine() {
         currentLineIndex += 1
         phase = .typing
-        scheduleNextCharacter()
-    }
-
-    private func stopTimers() {
-        animationTimer?.invalidate()
-        animationTimer = nil
-        cursorTimer?.invalidate()
-        cursorTimer = nil
     }
 }
 

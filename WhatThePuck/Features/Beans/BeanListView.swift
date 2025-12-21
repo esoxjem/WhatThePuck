@@ -57,6 +57,7 @@ struct BeanListView: View {
         }
     }
 
+    @MainActor
     private func deleteBeans(at offsets: IndexSet) {
         for index in offsets {
             modelContext.delete(beans[index])

@@ -149,6 +149,7 @@ struct ShotFormView: View {
         notes = shot.notes
     }
 
+    @MainActor
     private func saveShot() {
         guard let bean = selectedBean else { return }
         lastSelectedBeanID = bean.displayName

@@ -88,6 +88,7 @@ struct BeanFormView: View {
         }
     }
 
+    @MainActor
     private func saveBean() {
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
         let trimmedRoaster = roaster.trimmingCharacters(in: .whitespaces)
@@ -112,8 +113,14 @@ struct BeanFormView: View {
             hasCompletedOnboarding = true
             dismiss()
         } catch {
-            print("Failed to save bean: \(error)")
+            logSaveFailure(error)
         }
+    }
+
+    private func logSaveFailure(_ error: Error) {
+        #if DEBUG
+        print("Failed to save bean: \(error)")
+        #endif
     }
 }
 

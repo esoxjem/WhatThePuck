@@ -6,14 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		606476902EF80000006CE6FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6064765E2EF7E0CE006CE6FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 606476652EF7E0CE006CE6FB;
+			remoteInfo = WhatThePuck;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		606476662EF7E0CE006CE6FB /* WhatThePuck.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatThePuck.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		606476802EF7E8F0006CE6FB /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CLAUDE.md; sourceTree = "<group>"; };
+		6064768E2EF80000006CE6FB /* WhatThePuckTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WhatThePuckTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		606476682EF7E0CE006CE6FB /* WhatThePuck */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WhatThePuck;
+			sourceTree = "<group>";
+		};
+		6064768F2EF80000006CE6FB /* WhatThePuckTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WhatThePuckTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -26,13 +43,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6064768B2EF80000006CE6FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		6064765D2EF7E0CE006CE6FB = {
 			isa = PBXGroup;
 			children = (
+				606476802EF7E8F0006CE6FB /* CLAUDE.md */,
 				606476682EF7E0CE006CE6FB /* WhatThePuck */,
+				6064768F2EF80000006CE6FB /* WhatThePuckTests */,
 				606476672EF7E0CE006CE6FB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				606476662EF7E0CE006CE6FB /* WhatThePuck.app */,
+				6064768E2EF80000006CE6FB /* WhatThePuckTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +97,29 @@
 			productReference = 606476662EF7E0CE006CE6FB /* WhatThePuck.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6064768D2EF80000006CE6FB /* WhatThePuckTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 606476942EF80000006CE6FB /* Build configuration list for PBXNativeTarget "WhatThePuckTests" */;
+			buildPhases = (
+				6064768A2EF80000006CE6FB /* Sources */,
+				6064768B2EF80000006CE6FB /* Frameworks */,
+				6064768C2EF80000006CE6FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				606476912EF80000006CE6FB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				6064768F2EF80000006CE6FB /* WhatThePuckTests */,
+			);
+			name = WhatThePuckTests;
+			packageProductDependencies = (
+			);
+			productName = WhatThePuckTests;
+			productReference = 6064768E2EF80000006CE6FB /* WhatThePuckTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -82,6 +132,10 @@
 				TargetAttributes = {
 					606476652EF7E0CE006CE6FB = {
 						CreatedOnToolsVersion = 26.0;
+					};
+					6064768D2EF80000006CE6FB = {
+						CreatedOnToolsVersion = 26.0;
+						TestTargetID = 606476652EF7E0CE006CE6FB;
 					};
 				};
 			};
@@ -100,12 +154,20 @@
 			projectRoot = "";
 			targets = (
 				606476652EF7E0CE006CE6FB /* WhatThePuck */,
+				6064768D2EF80000006CE6FB /* WhatThePuckTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		606476642EF7E0CE006CE6FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6064768C2EF80000006CE6FB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,7 +184,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6064768A2EF80000006CE6FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		606476912EF80000006CE6FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 606476652EF7E0CE006CE6FB /* WhatThePuck */;
+			targetProxy = 606476902EF80000006CE6FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6064766F2EF7E0CF006CE6FB /* Debug */ = {
@@ -256,6 +333,7 @@
 				DEVELOPMENT_TEAM = QTZUF46V7A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -288,6 +366,7 @@
 				DEVELOPMENT_TEAM = QTZUF46V7A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -310,6 +389,50 @@
 			};
 			name = Release;
 		};
+		606476922EF80000006CE6FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QTZUF46V7A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.esoxjem.WhatThePuckTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhatThePuck.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WhatThePuck";
+			};
+			name = Debug;
+		};
+		606476932EF80000006CE6FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = QTZUF46V7A;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.esoxjem.WhatThePuckTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WhatThePuck.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WhatThePuck";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -327,6 +450,15 @@
 			buildConfigurations = (
 				606476722EF7E0CF006CE6FB /* Debug */,
 				606476732EF7E0CF006CE6FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		606476942EF80000006CE6FB /* Build configuration list for PBXNativeTarget "WhatThePuckTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				606476922EF80000006CE6FB /* Debug */,
+				606476932EF80000006CE6FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

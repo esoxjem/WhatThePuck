@@ -52,7 +52,7 @@
       },
       "messages": [
         "Shot #1. The journey begins.",
-        "Welcome. Every expert was once a beginner with a bottomless portafilter."
+        "Welcome.\nEvery expert was once a beginner with a bottomless portafilter."
       ]
     },
     {
@@ -64,7 +64,7 @@
         "value": 10
       },
       "messages": [
-        "Double digits. You're not just curious anymore."
+        "Double digits.\nYou're not just curious anymore."
       ]
     },
     {
@@ -76,7 +76,7 @@
         "value": 50
       },
       "messages": [
-        "50 shots logged. You've probably wasted less coffee than most people ever dial in."
+        "50 shots logged.\nYou've probably wasted less coffee than most people ever dial in."
       ]
     },
     {
@@ -88,8 +88,8 @@
         "value": 100
       },
       "messages": [
-        "Triple digits. You've earned your opinions about grinders.",
-        "100 shots. Your palate is not the problem anymore."
+        "Triple digits.\nYou've earned your opinions about grinders.",
+        "100 shots.\nYour palate is not the problem anymore."
       ]
     },
     {
@@ -101,7 +101,7 @@
         "value": 500
       },
       "messages": [
-        "500. At this point, you're basically doing R&D."
+        "500.\nAt this point, you're basically doing R&D."
       ]
     },
     {
@@ -113,7 +113,7 @@
         "value": true
       },
       "messages": [
-        "First dial-in. Screenshot this feeling."
+        "First dial-in.\nScreenshot this feeling."
       ]
     },
     {
@@ -125,8 +125,8 @@
         "value": 30
       },
       "messages": [
-        "Long time. New bag, clean slate.",
-        "Back from the dead. Respect the rust."
+        "Long time.\nNew bag, clean slate.",
+        "Back from the dead.\nRespect the rust."
       ]
     },
     {
@@ -138,8 +138,8 @@
         "value": [7, 29]
       },
       "messages": [
-        "A week away. Beans have probably degassed. Start fresh.",
-        "The puck doesn't hold grudges. Let's go."
+        "A week away.\nBeans have probably degassed.\nStart fresh.",
+        "The puck doesn't hold grudges.\nLet's go."
       ]
     },
     {
@@ -151,8 +151,8 @@
         "value": [3, 6]
       },
       "messages": [
-        "Been a few days. The grinder missed you.",
-        "Welcome back. Let's recalibrate."
+        "Been a few days.\nThe grinder missed you.",
+        "Welcome back.\nLet's recalibrate."
       ]
     },
     {
@@ -164,7 +164,7 @@
         "value": 30
       },
       "messages": [
-        "30 days. You're not chasing the god shot. You're just showing up."
+        "30 days.\nYou're not chasing the god shot.\nYou're just showing up."
       ]
     },
     {
@@ -176,7 +176,7 @@
         "value": 7
       },
       "messages": [
-        "A full week. Your muscle memory is forming."
+        "A full week.\nYour muscle memory is forming."
       ]
     },
     {
@@ -188,7 +188,7 @@
         "value": 3
       },
       "messages": [
-        "3 days running. Consistency is a variable too."
+        "3 days running.\nConsistency is a variable too."
       ]
     },
     {
@@ -200,8 +200,8 @@
         "value": "dialed_in"
       },
       "messages": [
-        "Locked in. Repeat it or ride the high.",
-        "Yesterday's shot was gold. Now prove it wasn't luck."
+        "Locked in.\nRepeat it or ride the high.",
+        "Yesterday's shot was gold.\nNow prove it wasn't luck."
       ]
     },
     {
@@ -213,9 +213,9 @@
         "value": 3
       },
       "messages": [
-        "Rough stretch. Try 1 click coarser. Or finer. Chaos is a ladder.",
+        "Rough stretch.\nTry 1 click coarser.\nOr finer. Chaos is a ladder.",
         "Sink shots build character.",
-        "Still here after 3 bad ones? That's the mentality."
+        "Still here after 3 bad ones?\nThat's the mentality."
       ]
     },
     {
@@ -228,8 +228,8 @@
         ]
       },
       "messages": [
-        "Monday morning. The most important shot of the week.",
-        "Monday, 9am energy. Let the espresso do the talking.",
+        "Monday morning.\nThe most important shot of the week.",
+        "Monday, 9am energy.\nLet the espresso do the talking.",
         "Start the week with a clean puck and low expectations."
       ]
     },
@@ -243,8 +243,8 @@
         ]
       },
       "messages": [
-        "Friday night espresso. You've earned the chaos.",
-        "End of week. Experimental shots allowed."
+        "Friday night espresso.\nYou've earned the chaos.",
+        "End of week.\nExperimental shots allowed."
       ]
     },
     {
@@ -257,8 +257,8 @@
         ]
       },
       "messages": [
-        "Weekend morning. The sacred window.",
-        "No alarms. No rushing. Just dialing in.",
+        "Weekend morning.\nThe sacred window.",
+        "No alarms.\nNo rushing.\nJust dialing in.",
         "Saturday coffee is a ritual, not a task."
       ]
     },
@@ -272,7 +272,7 @@
         ]
       },
       "messages": [
-        "Cold morning. The machine takes longer to warm. So do you.",
+        "Cold morning.\nThe machine takes longer to warm.\nSo do you.",
         "Winter mornings were made for espresso."
       ]
     },
@@ -286,8 +286,8 @@
         ]
       },
       "messages": [
-        "Hot afternoon. Consider the iced shot.",
-        "Summer siesta espresso. Respect."
+        "Hot afternoon.\nConsider the iced shot.",
+        "Summer siesta espresso.\nRespect."
       ]
     },
     {
@@ -300,8 +300,8 @@
         ]
       },
       "messages": [
-        "Week-long streak AND dialed in? You're dangerous.",
-        "Consistency meets precision. This is the way."
+        "Week-long streak AND dialed in?\nYou're dangerous.",
+        "Consistency meets precision.\nThis is the way."
       ]
     },
     {
@@ -314,8 +314,8 @@
         ]
       },
       "messages": [
-        "100+ shots and still getting humbled. Espresso doesn't care about experience.",
-        "Veterans have bad days too. New bag?"
+        "100+ shots and still getting humbled.\nEspresso doesn't care about experience.",
+        "Veterans have bad days too.\nNew bag?"
       ]
     },
     {
@@ -327,9 +327,9 @@
         "value": [0, 5]
       },
       "messages": [
-        "The world's asleep. Your grinder isn't.",
-        "Premarket espresso. Respect.",
-        "Dawn patrol. Let's make it count."
+        "The world's asleep.\nYour grinder isn't.",
+        "Premarket espresso.\nRespect.",
+        "Dawn patrol.\nLet's make it count."
       ]
     },
     {
@@ -341,9 +341,9 @@
         "value": [6, 11]
       },
       "messages": [
-        "Peak espresso hours. No pressure.",
+        "Peak espresso hours.\nNo pressure.",
         "Morning light, fresh beans, good odds.",
-        "The day is young. So is this puck."
+        "The day is young.\nSo is this puck."
       ]
     },
     {
@@ -355,8 +355,8 @@
         "value": [12, 17]
       },
       "messages": [
-        "Afternoon shot? You know what you're about.",
-        "Post-lunch espresso is a lifestyle choice. Good one.",
+        "Afternoon shot?\nYou know what you're about.",
+        "Post-lunch espresso is a lifestyle choice.\nGood one.",
         "The 2pm shot separates hobbyists from addicts."
       ]
     },
@@ -369,7 +369,7 @@
         "value": [18, 23]
       },
       "messages": [
-        "Evening espresso. Sleep is a social construct anyway.",
+        "Evening espresso.\nSleep is a social construct anyway.",
         "Bold move pulling shots after sunset.",
         "Night owl, meet naked portafilter."
       ]
@@ -383,7 +383,7 @@
         "value": 1
       },
       "messages": [
-        "Monday. The beans understand.",
+        "Monday.\nThe beans understand.",
         "Start the week dialed in."
       ]
     },
@@ -396,8 +396,8 @@
         "value": 5
       },
       "messages": [
-        "Friday shot. Make it celebratory.",
-        "Weekend's calling. One more dial-in first."
+        "Friday shot.\nMake it celebratory.",
+        "Weekend's calling.\nOne more dial-in first."
       ]
     },
     {
@@ -409,8 +409,8 @@
         "value": [6, 7]
       },
       "messages": [
-        "Weekend pace. No rush, just extraction.",
-        "No meetings. Just channeling to fix."
+        "Weekend pace.\nNo rush, just extraction.",
+        "No meetings.\nJust channeling to fix."
       ]
     },
     {
@@ -436,7 +436,7 @@
         "value": [6, 7, 8]
       },
       "messages": [
-        "Humid? Watch your grind creep finer.",
+        "Humid?\nWatch your grind creep finer.",
         "Summer beans, summer adjustments."
       ]
     },
@@ -449,12 +449,12 @@
         "value": true
       },
       "messages": [
-        "Grind. Dose. Tamp. Truth.",
+        "Grind.\nDose.\nTamp.\nTruth.",
         "The perfect shot is a hypothesis.",
         "Espresso is just applied thermodynamics.",
-        "Every variable is a lever. Pull wisely.",
-        "Trust the process. Adjust the grind.",
-        "You're not over-extracting. You're learning.",
+        "Every variable is a lever.\nPull wisely.",
+        "Trust the process.\nAdjust the grind.",
+        "You're not over-extracting.\nYou're learning.",
         "Somewhere, a WDT tool is waiting."
       ]
     }

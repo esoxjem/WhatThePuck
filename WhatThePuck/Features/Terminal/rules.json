@@ -329,7 +329,10 @@
       "messages": [
         ["The world's asleep.", "Your grinder isn't."],
         ["Premarket espresso.", "Respect."],
-        ["Dawn patrol.", "Let's make it count."]
+        ["Dawn patrol.", "Let's make it count."],
+        ["Night shift energy.", "The puck doesn't judge."],
+        ["Silent house.", "Loud extraction."],
+        ["Insomnia fuel.", "No shame."]
       ]
     },
     {
@@ -343,7 +346,10 @@
       "messages": [
         ["Peak espresso hours.", "No pressure."],
         ["Morning light, fresh beans, good odds."],
-        ["The day is young.", "So is this puck."]
+        ["The day is young.", "So is this puck."],
+        ["First light.", "First extraction."],
+        ["Before the inbox.", "After the grinder."],
+        ["AM hours.", "PM problems wait."]
       ]
     },
     {
@@ -357,7 +363,10 @@
       "messages": [
         ["Afternoon shot?", "You know what you're about."],
         ["Post-lunch espresso is a lifestyle choice.", "Good one."],
-        ["The 2pm shot separates hobbyists from addicts."]
+        ["The 2pm shot separates hobbyists from addicts."],
+        ["Post-lunch slump.", "Espresso intervention."],
+        ["Midday recalibration.", "Necessary."],
+        ["End of day approaches.", "One more extraction."]
       ]
     },
     {
@@ -371,7 +380,10 @@
       "messages": [
         ["Evening espresso.", "Sleep is a social construct anyway."],
         ["Bold move pulling shots after sunset."],
-        ["Night owl, meet naked portafilter."]
+        ["Night owl, meet naked portafilter."],
+        ["Sunset espresso.", "Bold choice."],
+        ["Dark outside.", "Dark roast inside."],
+        ["The late shift.", "Worth it."]
       ]
     },
     {

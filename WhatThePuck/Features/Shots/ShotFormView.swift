@@ -151,7 +151,7 @@ struct ShotFormView: View {
     }
 
     private func populateFieldsFromShot(_ shot: Shot) {
-        selectedBean = shot.bean
+        selectedBean = beans.first { $0.id == shot.bean.id }
         doseGrams = shot.doseGrams
         yieldGrams = shot.yieldGrams
         timeInSeconds = Double(shot.timeSeconds) / 10.0

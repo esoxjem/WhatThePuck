@@ -120,8 +120,7 @@ struct ShotListView: View {
             beans: beans,
             activeBean: beans.first
         )
-        let message = MessageEngineProvider.shared.getMessage(context: context)
-        let lines = message.components(separatedBy: "\n")
+        let lines = MessageEngineProvider.shared.getMessage(context: context)
         TerminalView(content: .contextualMessage(lines: lines))
             .id("contextual-\(shots.count)-\(beans.count)")
     }

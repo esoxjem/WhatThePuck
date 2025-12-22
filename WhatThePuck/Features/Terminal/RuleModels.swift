@@ -12,7 +12,7 @@ struct Rule: Codable {
     let id: String
     let priority: Int
     let condition: Condition
-    let messages: [String]
+    let messages: [[String]]
 }
 
 indirect enum Condition: Codable {

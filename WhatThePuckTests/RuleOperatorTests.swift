@@ -18,7 +18,7 @@ struct RuleOperatorTests {
                     "id": "fallback",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["fallback"]
+                    "messages": [["fallback"]]
                 }
             ]
         }
@@ -51,11 +51,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "eq", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["matched"])
     }
 
     @Test("eq does not match when values differ")
@@ -65,11 +65,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "eq", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == ["fallback"])
     }
 
     @Test("neq matches when values differ")
@@ -79,11 +79,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "neq", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == ["matched"])
     }
 
     @Test("neq does not match when values are equal")
@@ -93,11 +93,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "neq", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["fallback"])
     }
 
     @Test("gt matches when context is greater")
@@ -107,11 +107,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "gt", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == ["matched"])
     }
 
     @Test("gt does not match when context is equal")
@@ -121,11 +121,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "gt", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["fallback"])
     }
 
     @Test("gte matches when context is greater")
@@ -135,11 +135,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "gte", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == ["matched"])
     }
 
     @Test("gte matches when context is equal")
@@ -149,11 +149,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "gte", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["matched"])
     }
 
     @Test("lt matches when context is less")
@@ -163,11 +163,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "lt", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 3)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 3)) == ["matched"])
     }
 
     @Test("lt does not match when context is equal")
@@ -177,11 +177,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "lt", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["fallback"])
     }
 
     @Test("lte matches when context is less")
@@ -191,11 +191,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "lte", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 3)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 3)) == ["matched"])
     }
 
     @Test("lte matches when context is equal")
@@ -205,11 +205,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "lte", "value": 5 },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["matched"])
     }
 
     @Test("between matches when value is in range")
@@ -219,11 +219,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "between", "value": [5, 10] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 7)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 7)) == ["matched"])
     }
 
     @Test("between matches at lower bound")
@@ -233,11 +233,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "between", "value": [5, 10] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 5)) == ["matched"])
     }
 
     @Test("between matches at upper bound")
@@ -247,11 +247,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "between", "value": [5, 10] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == "matched")
+        #expect(engine.getMessage(context: makeContext(shotCount: 10)) == ["matched"])
     }
 
     @Test("between does not match below range")
@@ -261,11 +261,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "between", "value": [5, 10] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 4)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(shotCount: 4)) == ["fallback"])
     }
 
     @Test("between does not match above range")
@@ -275,11 +275,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "shot_count", "operator": "between", "value": [5, 10] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(shotCount: 11)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(shotCount: 11)) == ["fallback"])
     }
 
     @Test("in matches when value is in array")
@@ -289,11 +289,11 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "day_of_week", "operator": "in", "value": [1, 3, 5] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(dayOfWeek: 3)) == "matched")
+        #expect(engine.getMessage(context: makeContext(dayOfWeek: 3)) == ["matched"])
     }
 
     @Test("in does not match when value is not in array")
@@ -303,10 +303,10 @@ struct RuleOperatorTests {
             "id": "test",
             "priority": 100,
             "condition": { "type": "day_of_week", "operator": "in", "value": [1, 3, 5] },
-            "messages": ["matched"]
+            "messages": [["matched"]]
         }
         """
         let engine = try makeEngine(ruleJson: ruleJson)
-        #expect(engine.getMessage(context: makeContext(dayOfWeek: 2)) == "fallback")
+        #expect(engine.getMessage(context: makeContext(dayOfWeek: 2)) == ["fallback"])
     }
 }

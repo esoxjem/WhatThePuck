@@ -50,14 +50,14 @@ struct MessageEngineTests {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Hello"]
+                    "messages": [["Hello"]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let message = engine.getMessage(context: makeContext())
-        #expect(message == "Hello")
+        #expect(message == ["Hello"])
     }
 
     @Test("returns fallback when no rules match")
@@ -73,13 +73,13 @@ struct MessageEngineTests {
                     "id": "never",
                     "priority": 100,
                     "condition": { "type": "shot_count", "operator": "eq", "value": 999 },
-                    "messages": ["Never shown"]
+                    "messages": [["Never shown"]]
                 },
                 {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Fallback message"]
+                    "messages": [["Fallback message"]]
                 }
             ]
         }
@@ -87,7 +87,7 @@ struct MessageEngineTests {
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(shotCount: 0)
         let message = engine.getMessage(context: context)
-        #expect(message == "Fallback message")
+        #expect(message == ["Fallback message"])
     }
 
     @Test("higher priority rule wins")
@@ -103,20 +103,20 @@ struct MessageEngineTests {
                     "id": "low",
                     "priority": 10,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Low priority"]
+                    "messages": [["Low priority"]]
                 },
                 {
                     "id": "high",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["High priority"]
+                    "messages": [["High priority"]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let message = engine.getMessage(context: makeContext())
-        #expect(message == "High priority")
+        #expect(message == ["High priority"])
     }
 
     @Test("AND condition requires all to match")
@@ -137,13 +137,13 @@ struct MessageEngineTests {
                             { "type": "streak_days", "operator": "eq", "value": 3 }
                         ]
                     },
-                    "messages": ["Both match"]
+                    "messages": [["Both match"]]
                 },
                 {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Fallback"]
+                    "messages": [["Fallback"]]
                 }
             ]
         }
@@ -151,10 +151,10 @@ struct MessageEngineTests {
         let engine = try MessageEngine(jsonData: Data(json.utf8))
 
         let matchingContext = makeContext(shotCount: 5, streakDays: 3)
-        #expect(engine.getMessage(context: matchingContext) == "Both match")
+        #expect(engine.getMessage(context: matchingContext) == ["Both match"])
 
         let partialContext = makeContext(shotCount: 5, streakDays: 0)
-        #expect(engine.getMessage(context: partialContext) == "Fallback")
+        #expect(engine.getMessage(context: partialContext) == ["Fallback"])
     }
 
     @Test("OR condition matches any")
@@ -175,13 +175,13 @@ struct MessageEngineTests {
                             { "type": "streak_days", "operator": "eq", "value": 3 }
                         ]
                     },
-                    "messages": ["Either match"]
+                    "messages": [["Either match"]]
                 },
                 {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Fallback"]
+                    "messages": [["Fallback"]]
                 }
             ]
         }
@@ -189,13 +189,13 @@ struct MessageEngineTests {
         let engine = try MessageEngine(jsonData: Data(json.utf8))
 
         let firstContext = makeContext(shotCount: 5, streakDays: 0)
-        #expect(engine.getMessage(context: firstContext) == "Either match")
+        #expect(engine.getMessage(context: firstContext) == ["Either match"])
 
         let secondContext = makeContext(shotCount: 0, streakDays: 3)
-        #expect(engine.getMessage(context: secondContext) == "Either match")
+        #expect(engine.getMessage(context: secondContext) == ["Either match"])
 
         let neitherContext = makeContext(shotCount: 0, streakDays: 0)
-        #expect(engine.getMessage(context: neitherContext) == "Fallback")
+        #expect(engine.getMessage(context: neitherContext) == ["Fallback"])
     }
 
     @Test("skips rule when nil context field is required")
@@ -211,20 +211,20 @@ struct MessageEngineTests {
                     "id": "needs_days",
                     "priority": 100,
                     "condition": { "type": "days_since_last_shot", "operator": "gte", "value": 7 },
-                    "messages": ["Has days"]
+                    "messages": [["Has days"]]
                 },
                 {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Fallback"]
+                    "messages": [["Fallback"]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(daysSinceLastShot: nil)
-        #expect(engine.getMessage(context: context) == "Fallback")
+        #expect(engine.getMessage(context: context) == ["Fallback"])
     }
 
     @Test("processes bean displayName template")
@@ -240,17 +240,17 @@ struct MessageEngineTests {
                     "id": "template",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["{{bean.displayName}} loaded."]
+                    "messages": [["{{bean.displayName}} loaded."]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(activeBeanDisplayName: "Ethiopian Yirgacheffe")
-        #expect(engine.getMessage(context: context) == "Ethiopian Yirgacheffe loaded.")
+        #expect(engine.getMessage(context: context) == ["Ethiopian Yirgacheffe loaded."])
     }
 
-    @Test("processes multiple templates in same message")
+    @Test("processes multiple templates in same line")
     func processesMultipleTemplates() throws {
         let json = """
         {
@@ -263,14 +263,14 @@ struct MessageEngineTests {
                     "id": "template",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["{{bean.displayName}} - {{bean.roastLevel}}"]
+                    "messages": [["{{bean.displayName}} - {{bean.roastLevel}}"]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(activeBeanDisplayName: "Test Bean", activeBeanRoastLevel: "Dark roast.")
-        #expect(engine.getMessage(context: context) == "Test Bean - Dark roast.")
+        #expect(engine.getMessage(context: context) == ["Test Bean - Dark roast."])
     }
 
     @Test("skips line when template value is nil")
@@ -286,14 +286,14 @@ struct MessageEngineTests {
                     "id": "template",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["{{bean.displayName}} loaded."]
+                    "messages": [["{{bean.displayName}} loaded."]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(activeBeanDisplayName: nil)
-        #expect(engine.getMessage(context: context) == "")
+        #expect(engine.getMessage(context: context) == [])
     }
 
     @Test("skips only the line with nil value in multi-line message")
@@ -309,14 +309,14 @@ struct MessageEngineTests {
                     "id": "template",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Line 1.\\n{{bean.roastAge}}\\nLine 3."]
+                    "messages": [["Line 1.", "{{bean.roastAge}}", "Line 3."]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(activeBeanRoastAge: nil)
-        #expect(engine.getMessage(context: context) == "Line 1.\nLine 3.")
+        #expect(engine.getMessage(context: context) == ["Line 1.", "Line 3."])
     }
 
     @Test("skips line when any placeholder on line has nil value")
@@ -332,14 +332,14 @@ struct MessageEngineTests {
                     "id": "template",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["{{bean.displayName}} - {{bean.roastAge}}"]
+                    "messages": [["{{bean.displayName}} - {{bean.roastAge}}"]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
         let context = makeContext(activeBeanDisplayName: "Test Bean", activeBeanRoastAge: nil)
-        #expect(engine.getMessage(context: context) == "")
+        #expect(engine.getMessage(context: context) == [])
     }
 
     @Test("skips rules with empty messages")
@@ -361,13 +361,13 @@ struct MessageEngineTests {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Fallback"]
+                    "messages": [["Fallback"]]
                 }
             ]
         }
         """
         let engine = try MessageEngine(jsonData: Data(json.utf8))
-        #expect(engine.getMessage(context: makeContext()) == "Fallback")
+        #expect(engine.getMessage(context: makeContext()) == ["Fallback"])
     }
 
     @Test("handles nested AND/OR conditions")
@@ -393,13 +393,13 @@ struct MessageEngineTests {
                             }
                         ]
                     },
-                    "messages": ["Nested match"]
+                    "messages": [["Nested match"]]
                 },
                 {
                     "id": "general",
                     "priority": 0,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["Fallback"]
+                    "messages": [["Fallback"]]
                 }
             ]
         }
@@ -407,17 +407,18 @@ struct MessageEngineTests {
         let engine = try MessageEngine(jsonData: Data(json.utf8))
 
         let matchingContext = makeContext(shotCount: 50, streakDays: 7)
-        #expect(engine.getMessage(context: matchingContext) == "Nested match")
+        #expect(engine.getMessage(context: matchingContext) == ["Nested match"])
 
         let noMatchContext = makeContext(shotCount: 50, streakDays: 5)
-        #expect(engine.getMessage(context: noMatchContext) == "Fallback")
+        #expect(engine.getMessage(context: noMatchContext) == ["Fallback"])
     }
 }
 
 @Suite("MessageEngine Template Processing Tests")
 struct MessageEngineTemplateTests {
 
-    private func makeEngineWithTemplate(_ template: String) throws -> MessageEngine {
+    private func makeEngineWithTemplate(_ lines: [String]) throws -> MessageEngine {
+        let linesJson = lines.map { "\"\($0)\"" }.joined(separator: ", ")
         let json = """
         {
             "version": 2,
@@ -429,7 +430,7 @@ struct MessageEngineTemplateTests {
                     "id": "template",
                     "priority": 100,
                     "condition": { "type": "always", "operator": "eq", "value": true },
-                    "messages": ["\(template)"]
+                    "messages": [[\(linesJson)]]
                 }
             ]
         }
@@ -439,7 +440,7 @@ struct MessageEngineTemplateTests {
 
     @Test("shotCount template replacement")
     func shotCountTemplate() throws {
-        let engine = try makeEngineWithTemplate("You have {{shotCount}} shots.")
+        let engine = try makeEngineWithTemplate(["You have {{shotCount}} shots."])
         let context = MessageContext(
             shotCount: 42,
             daysSinceLastShot: nil,
@@ -455,12 +456,12 @@ struct MessageEngineTemplateTests {
             dayOfWeek: 1,
             month: 6
         )
-        #expect(engine.getMessage(context: context) == "You have 42 shots.")
+        #expect(engine.getMessage(context: context) == ["You have 42 shots."])
     }
 
     @Test("streakDays template replacement")
     func streakDaysTemplate() throws {
-        let engine = try makeEngineWithTemplate("{{streakDays}} day streak!")
+        let engine = try makeEngineWithTemplate(["{{streakDays}} day streak!"])
         let context = MessageContext(
             shotCount: 0,
             daysSinceLastShot: nil,
@@ -476,12 +477,12 @@ struct MessageEngineTemplateTests {
             dayOfWeek: 1,
             month: 6
         )
-        #expect(engine.getMessage(context: context) == "7 day streak!")
+        #expect(engine.getMessage(context: context) == ["7 day streak!"])
     }
 
     @Test("bean.roastAge template replacement")
     func beanRoastAgeTemplate() throws {
-        let engine = try makeEngineWithTemplate("{{bean.roastAge}}")
+        let engine = try makeEngineWithTemplate(["{{bean.roastAge}}"])
         let context = MessageContext(
             shotCount: 0,
             daysSinceLastShot: nil,
@@ -497,6 +498,6 @@ struct MessageEngineTemplateTests {
             dayOfWeek: 1,
             month: 6
         )
-        #expect(engine.getMessage(context: context) == "5 days off roast.")
+        #expect(engine.getMessage(context: context) == ["5 days off roast."])
     }
 }

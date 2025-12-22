@@ -2,9 +2,9 @@ import Foundation
 
 struct MessageEngine {
     private let rules: [Rule]
-    private let fallbackMessages: [String]
+    private let fallbackMessages: [[String]]
 
-    private static let defaultFallback = "Let's pull a shot."
+    private static let defaultFallback = ["Let's pull a shot."]
 
     init(jsonData: Data) throws {
         let schema = try JSONDecoder().decode(RuleSchema.self, from: jsonData)
@@ -14,16 +14,16 @@ struct MessageEngine {
             .messages ?? []
     }
 
-    func getMessage(context: MessageContext) -> String {
+    func getMessage(context: MessageContext) -> [String] {
         let matchingRule = rules.first { rule in
             !rule.messages.isEmpty && evaluate(condition: rule.condition, context: context)
         }
 
-        let rawMessage = selectRandomMessage(from: matchingRule?.messages)
-        return processTemplate(rawMessage, context: context)
+        let rawLines = selectRandomMessage(from: matchingRule?.messages)
+        return processTemplateLines(rawLines, context: context)
     }
 
-    private func selectRandomMessage(from messages: [String]?) -> String {
+    private func selectRandomMessage(from messages: [[String]]?) -> [String] {
         guard let messages = messages, !messages.isEmpty else {
             return fallbackMessages.randomElement() ?? Self.defaultFallback
         }
@@ -111,7 +111,7 @@ struct MessageEngine {
         }
     }
 
-    private func processTemplate(_ message: String, context: MessageContext) -> String {
+    private func processTemplateLines(_ lines: [String], context: MessageContext) -> [String] {
         let placeholderValues: [(String, String?)] = [
             ("{{bean.displayName}}", context.activeBeanDisplayName),
             ("{{bean.roastAge}}", context.activeBeanRoastAge),
@@ -120,12 +120,9 @@ struct MessageEngine {
             ("{{streakDays}}", String(context.streakDays))
         ]
 
-        let lines = message.components(separatedBy: "\n")
-        let processedLines = lines.compactMap { line in
+        return lines.compactMap { line in
             processLine(line, placeholderValues: placeholderValues)
         }
-
-        return processedLines.joined(separator: "\n")
     }
 
     private func processLine(_ line: String, placeholderValues: [(String, String?)]) -> String? {

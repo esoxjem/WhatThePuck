@@ -66,19 +66,21 @@ struct TerminalView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            ForEach(0..<visibleLineCount, id: \.self) { index in
-                terminalLine(
-                    text: displayedLines[index],
-                    showCursor: shouldShowCursor(at: index)
-                )
+            ForEach(Array(displayedLines.enumerated()), id: \.offset) { index, line in
+                if index <= currentLineIndex {
+                    terminalLine(
+                        text: line,
+                        showCursor: shouldShowCursor(at: index)
+                    )
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.horizontal, 20)
         .padding(.top, 40)
         .font(.system(.subheadline, design: .monospaced))
-        .task { await runCursorBlink() }
-        .task { await runTypewriterAnimation() }
+        .task(id: ObjectIdentifier(type(of: content))) { await runCursorBlink() }
+        .task(id: ObjectIdentifier(type(of: content))) { await runTypewriterAnimation() }
         .onChange(of: content.lines.count) { oldCount, newCount in
             handleLineCountChange(from: oldCount, to: newCount)
         }
@@ -89,10 +91,6 @@ struct TerminalView: View {
         displayedLines.append(contentsOf: Array(repeating: "", count: newCount - oldCount))
         guard phase == .complete else { return }
         phase = .pauseBetweenLines
-    }
-
-    private var visibleLineCount: Int {
-        min(currentLineIndex + 1, content.lines.count)
     }
 
     private func shouldShowCursor(at index: Int) -> Bool {
@@ -116,13 +114,17 @@ struct TerminalView: View {
     @MainActor
     private func runTypewriterAnimation() async {
         while !Task.isCancelled {
-            guard phase != .complete else {
-                try? await Task.sleep(for: .milliseconds(100))
-                continue
+            do {
+                guard phase != .complete else {
+                    try await Task.sleep(for: .milliseconds(100))
+                    continue
+                }
+                let sleepDuration = durationForCurrentPhase()
+                try await Task.sleep(for: sleepDuration)
+                advanceAnimation()
+            } catch {
+                break
             }
-            let sleepDuration = durationForCurrentPhase()
-            try? await Task.sleep(for: sleepDuration)
-            advanceAnimation()
         }
     }
 

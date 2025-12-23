@@ -8,7 +8,12 @@ struct ShotFormView: View {
     @AppStorage("lastSelectedBeanID") private var lastSelectedBeanID: String = ""
 
     var prefillTimeSeconds: Int?
-    var shotToEdit: Shot?
+    var shotToEditID: PersistentIdentifier?
+
+    private var shotToEdit: Shot? {
+        guard let id = shotToEditID else { return nil }
+        return modelContext.model(for: id) as? Shot
+    }
 
     @State private var selectedBean: Bean?
     @State private var doseGrams: Double = 18.0

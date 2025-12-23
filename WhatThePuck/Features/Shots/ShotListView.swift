@@ -8,7 +8,7 @@ struct ShotListView: View {
 
     @State private var showingAddShotSheet = false
     @State private var showingAddBeanSheet = false
-    @State private var shotToEdit: Shot?
+    @State private var shotToEditID: PersistentIdentifier?
     @State private var showFavoritesOnly = false
     @State private var selectedBeanFilter: Bean?
 
@@ -53,8 +53,11 @@ struct ShotListView: View {
             .sheet(isPresented: $showingAddBeanSheet) {
                 BeanFormView(showFirstBeanHint: true)
             }
-            .sheet(item: $shotToEdit) { shot in
-                ShotFormView(shotToEdit: shot)
+            .sheet(isPresented: Binding(
+                get: { shotToEditID != nil },
+                set: { if !$0 { shotToEditID = nil } }
+            )) {
+                ShotFormView(shotToEditID: shotToEditID)
             }
         }
     }
@@ -145,7 +148,7 @@ struct ShotListView: View {
                     ForEach(dayShots) { shot in
                         ShotRowView(shot: shot)
                             .contentShape(Rectangle())
-                            .onTapGesture { shotToEdit = shot }
+                            .onTapGesture { shotToEditID = shot.persistentModelID }
                             .swipeActions(edge: .leading) {
                                 Button {
                                     shot.isFavorite.toggle()

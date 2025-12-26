@@ -6,6 +6,7 @@ struct ShotFormView: View {
     @Environment(\.dismiss) private var dismiss
     @Query(sort: \Bean.createdAt, order: .reverse) private var beans: [Bean]
     @AppStorage("lastSelectedBeanID") private var lastSelectedBeanID: String = ""
+    @AppStorage("lastGrindSetting") private var lastGrindSetting: Int = 15
 
     var prefillTimeSeconds: Int?
     var shotToEditID: PersistentIdentifier?
@@ -116,6 +117,7 @@ struct ShotFormView: View {
                     if let prefillTenths = prefillTimeSeconds {
                         timeInSeconds = Double(prefillTenths) / 10.0
                     }
+                    grindSetting = lastGrindSetting
                     preselectBean()
                 }
             }
@@ -169,6 +171,7 @@ struct ShotFormView: View {
     private func saveShot() {
         guard let bean = selectedBean else { return }
         lastSelectedBeanID = bean.displayName
+        lastGrindSetting = grindSetting
         let timeAsTenths = Int(timeInSeconds * 10)
 
         if let existingShot = shotToEdit {

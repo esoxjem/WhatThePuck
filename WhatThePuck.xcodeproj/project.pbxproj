@@ -24,6 +24,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		60406EC42EFFB968009C44B2 /* .claude */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = .claude;
+			sourceTree = "<group>";
+		};
 		606476682EF7E0CE006CE6FB /* WhatThePuck */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = WhatThePuck;
@@ -57,6 +62,7 @@
 		6064765D2EF7E0CE006CE6FB = {
 			isa = PBXGroup;
 			children = (
+				60406EC42EFFB968009C44B2 /* .claude */,
 				60FD1D522EF885AA008A801D /* README.md */,
 				606476802EF7E8F0006CE6FB /* CLAUDE.md */,
 				606476682EF7E0CE006CE6FB /* WhatThePuck */,

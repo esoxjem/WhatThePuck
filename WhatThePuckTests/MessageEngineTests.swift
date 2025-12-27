@@ -18,7 +18,12 @@ struct MessageEngineTests {
         activeBeanRoastLevel: String? = nil,
         hour: Int = 12,
         dayOfWeek: Int = 1,
-        month: Int = 6
+        month: Int = 6,
+        uniqueBeansUsed: Int = 0,
+        grindSettingsUsed: Int = 0,
+        recentlyUnlockedAchievement: String? = nil,
+        closestAchievementProgressPercent: Int? = nil,
+        retroactiveUnlockCount: Int = 0
     ) -> MessageContext {
         MessageContext(
             shotCount: shotCount,
@@ -33,7 +38,12 @@ struct MessageEngineTests {
             activeBeanRoastLevel: activeBeanRoastLevel,
             hour: hour,
             dayOfWeek: dayOfWeek,
-            month: month
+            month: month,
+            uniqueBeansUsed: uniqueBeansUsed,
+            grindSettingsUsed: grindSettingsUsed,
+            recentlyUnlockedAchievement: recentlyUnlockedAchievement,
+            closestAchievementProgressPercent: closestAchievementProgressPercent,
+            retroactiveUnlockCount: retroactiveUnlockCount
         )
     }
 
@@ -454,7 +464,12 @@ struct MessageEngineTemplateTests {
             activeBeanRoastLevel: nil,
             hour: 12,
             dayOfWeek: 1,
-            month: 6
+            month: 6,
+            uniqueBeansUsed: 0,
+            grindSettingsUsed: 0,
+            recentlyUnlockedAchievement: nil,
+            closestAchievementProgressPercent: nil,
+            retroactiveUnlockCount: 0
         )
         #expect(engine.getMessage(context: context) == ["You have 42 shots."])
     }
@@ -475,7 +490,12 @@ struct MessageEngineTemplateTests {
             activeBeanRoastLevel: nil,
             hour: 12,
             dayOfWeek: 1,
-            month: 6
+            month: 6,
+            uniqueBeansUsed: 0,
+            grindSettingsUsed: 0,
+            recentlyUnlockedAchievement: nil,
+            closestAchievementProgressPercent: nil,
+            retroactiveUnlockCount: 0
         )
         #expect(engine.getMessage(context: context) == ["7 day streak!"])
     }
@@ -496,7 +516,12 @@ struct MessageEngineTemplateTests {
             activeBeanRoastLevel: nil,
             hour: 12,
             dayOfWeek: 1,
-            month: 6
+            month: 6,
+            uniqueBeansUsed: 0,
+            grindSettingsUsed: 0,
+            recentlyUnlockedAchievement: nil,
+            closestAchievementProgressPercent: nil,
+            retroactiveUnlockCount: 0
         )
         #expect(engine.getMessage(context: context) == ["5 days off roast."])
     }

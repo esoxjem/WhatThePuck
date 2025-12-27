@@ -87,6 +87,12 @@ enum ConditionType: String, Codable {
     case month
     case always
     case beanCount = "bean_count"
+
+    case uniqueBeansUsed = "unique_beans_used"
+    case grindSettingsUsed = "grind_settings_used"
+    case justUnlockedAchievement = "just_unlocked_achievement"
+    case achievementProgress = "achievement_progress"
+    case retroactiveUnlockCount = "retroactive_unlock_count"
 }
 
 enum ComparisonOperator: String, Codable {

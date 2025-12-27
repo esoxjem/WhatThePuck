@@ -3,6 +3,7 @@ import SwiftData
 
 struct ShotListView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(AchievementTracker.self) private var achievementTracker
     @Query(sort: \Shot.date, order: .reverse) private var shots: [Shot]
     @Query(sort: \Bean.createdAt, order: .reverse) private var beans: [Bean]
 
@@ -11,6 +12,7 @@ struct ShotListView: View {
     @State private var shotToEditID: PersistentIdentifier?
     @State private var showFavoritesOnly = false
     @State private var selectedBeanFilter: Bean?
+    @State private var hasCheckedRetroactiveAchievements = false
 
     var body: some View {
         NavigationStack {
@@ -36,14 +38,22 @@ struct ShotListView: View {
                     }
                 }
                 ToolbarItem(placement: .primaryAction) {
-                    Button {
-                        if beans.isEmpty {
-                            showingAddBeanSheet = true
-                        } else {
-                            showingAddShotSheet = true
+                    HStack(spacing: 16) {
+                        NavigationLink {
+                            BeanListView()
+                        } label: {
+                            Image(systemName: "leaf")
                         }
-                    } label: {
-                        Image(systemName: "plus")
+
+                        Button {
+                            if beans.isEmpty {
+                                showingAddBeanSheet = true
+                            } else {
+                                showingAddShotSheet = true
+                            }
+                        } label: {
+                            Image(systemName: "plus")
+                        }
                     }
                 }
             }
@@ -59,7 +69,21 @@ struct ShotListView: View {
             )) {
                 ShotFormView(shotToEditID: shotToEditID)
             }
+            .task {
+                checkRetroactiveAchievements()
+            }
         }
+    }
+
+    private func checkRetroactiveAchievements() {
+        guard !hasCheckedRetroactiveAchievements else { return }
+        hasCheckedRetroactiveAchievements = true
+        guard !shots.isEmpty else { return }
+        achievementTracker.checkAchievements(
+            shots: shots,
+            modelContext: modelContext,
+            isRetroactive: true
+        )
     }
 
     private var hasActiveFilters: Bool {
@@ -118,14 +142,47 @@ struct ShotListView: View {
 
     @ViewBuilder
     private var terminalForCurrentState: some View {
+        let achievementData = buildAchievementContextData()
         let context = MessageContextBuilder.buildContext(
             from: shots,
             beans: beans,
-            activeBean: beans.first
+            activeBean: beans.first,
+            achievementData: achievementData
         )
         let lines = MessageEngineProvider.shared.getMessage(context: context)
-        TerminalView(content: .contextualMessage(lines: lines))
-            .id("contextual-\(shots.count)-\(beans.count)")
+        let progressId = achievementData?.closestAchievementProgressPercent ?? -1
+        let terminalId = "terminal-\(shots.count)-\(beans.count)-\(achievementData?.recentlyUnlockedAchievement ?? "")-\(progressId)"
+        VStack(alignment: .leading, spacing: 12) {
+            TerminalView(content: .contextualMessage(lines: lines))
+                .id(terminalId)
+            achievementProgressIndicator
+        }
+    }
+
+    @ViewBuilder
+    private var achievementProgressIndicator: some View {
+        if let progress = achievementTracker.closestAchievementProgress {
+            let definition = AchievementDefinitionLoader.definition(for: progress.definitionId)
+            AchievementProgressView(progress: progress, definition: definition)
+                .padding(.horizontal, 20)
+        }
+    }
+
+    private func buildAchievementContextData() -> AchievementContextData? {
+        let uniqueBeans = Set(shots.map { $0.bean.persistentModelID }).count
+        let grindSettings = Set(shots.map { $0.grindSetting }).count
+
+        let recentlyUnlocked = achievementTracker.recentlyUnlockedDefinition()?.name
+        let closestProgress = achievementTracker.closestAchievementProgress
+        let progressPercent = closestProgress.map { Int($0.percentage * 100) }
+
+        return AchievementContextData(
+            uniqueBeansUsed: uniqueBeans,
+            grindSettingsUsed: grindSettings,
+            recentlyUnlockedAchievement: recentlyUnlocked,
+            closestAchievementProgressPercent: progressPercent,
+            retroactiveUnlockCount: achievementTracker.retroactiveUnlockCount
+        )
     }
 
     private var emptyStateFilterDescription: String {
@@ -195,5 +252,6 @@ struct ShotListView: View {
 
 #Preview {
     ShotListView()
-        .modelContainer(for: [Shot.self, Bean.self], inMemory: true)
+        .environment(AchievementTracker())
+        .modelContainer(for: [Shot.self, Bean.self, Achievement.self], inMemory: true)
 }

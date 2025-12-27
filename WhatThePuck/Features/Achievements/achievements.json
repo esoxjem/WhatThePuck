@@ -1,0 +1,124 @@
+{
+  "achievements": [
+    {
+      "id": "steady_hand",
+      "name": "Steady Hand",
+      "description": "5 consecutive shots within 1g yield variance",
+      "category": "consistency",
+      "targetValue": 5,
+      "calculationType": "ratioVariance",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Steady Hand\"", "5 shots. Tight grouping.", "You've got control."],
+        ["> UNLOCKED: \"Steady Hand\"", "Variance locked down.", "Consistency is a skill."]
+      ]
+    },
+    {
+      "id": "clockwork",
+      "name": "Clockwork",
+      "description": "10 shots within 2 seconds time variance",
+      "category": "consistency",
+      "targetValue": 10,
+      "calculationType": "timeVariance",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Clockwork\"", "10 shots. Same timing.", "Like a machine."],
+        ["> UNLOCKED: \"Clockwork\"", "Timing dialed.", "Precision acquired."]
+      ]
+    },
+    {
+      "id": "dialed_week",
+      "name": "Dialed In Week",
+      "description": "Hit dialed-in rating 7 days running",
+      "category": "consistency",
+      "targetValue": 7,
+      "calculationType": "consecutiveDialedInDays",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Dialed In Week\"", "7 days. All dialed.", "This is mastery."],
+        ["> UNLOCKED: \"Dialed In Week\"", "A full week dialed in.", "You know what you're doing."]
+      ]
+    },
+    {
+      "id": "bean_counter",
+      "name": "Bean Counter",
+      "description": "Shots with 10 different beans",
+      "category": "exploration",
+      "targetValue": 10,
+      "calculationType": "uniqueBeans",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Bean Counter\"", "10 different beans.", "Explorer status."],
+        ["> UNLOCKED: \"Bean Counter\"", "10 origins tasted.", "The world in a cup."]
+      ]
+    },
+    {
+      "id": "grind_whisperer",
+      "name": "Grind Whisperer",
+      "description": "Used 10+ different grind settings",
+      "category": "exploration",
+      "targetValue": 10,
+      "calculationType": "grindRange",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Grind Whisperer\"", "10 grind settings explored.", "You speak the language."],
+        ["> UNLOCKED: \"Grind Whisperer\"", "Full grind range used.", "Dial-in veteran."]
+      ]
+    },
+    {
+      "id": "quick_study",
+      "name": "Quick Study",
+      "description": "Dialed in a new bean in 3 shots or fewer",
+      "category": "mastery",
+      "targetValue": 1,
+      "calculationType": "quickDialIn",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Quick Study\"", "3 shots. Bean dialed.", "Some click faster than others."],
+        ["> UNLOCKED: \"Quick Study\"", "New bean. Quick dial-in.", "Intuition is real."]
+      ]
+    },
+    {
+      "id": "bean_whisperer",
+      "name": "Bean Whisperer",
+      "description": "50+ shots with the same bean",
+      "category": "mastery",
+      "targetValue": 50,
+      "calculationType": "maxShotsWithSameBean",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Bean Whisperer\"", "50 shots. Same origin.", "You know this bean now."],
+        ["> UNLOCKED: \"Bean Whisperer\"", "Deep relationship.", "Bean mastery achieved."]
+      ]
+    },
+    {
+      "id": "first_pull",
+      "name": "First Pull",
+      "description": "Log your first shot",
+      "category": "milestone",
+      "targetValue": 1,
+      "calculationType": "shotCount",
+      "unlockMessages": [
+        ["> UNLOCKED: \"First Pull\"", "Shot logged.", "The journey begins."],
+        ["> UNLOCKED: \"First Pull\"", "One shot recorded.", "Welcome to the obsession."]
+      ]
+    },
+    {
+      "id": "century",
+      "name": "Century",
+      "description": "100 shots logged",
+      "category": "milestone",
+      "targetValue": 100,
+      "calculationType": "shotCount",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Century\"", "100 shots.", "Triple digits."],
+        ["> UNLOCKED: \"Century\"", "Shot 100.", "You've wasted maybe 2kg of beans learning. Worth it."]
+      ]
+    },
+    {
+      "id": "thousand",
+      "name": "Thousand",
+      "description": "1000 shots logged",
+      "category": "milestone",
+      "targetValue": 1000,
+      "calculationType": "shotCount",
+      "unlockMessages": [
+        ["> UNLOCKED: \"Thousand\"", "1000 shots.", "Dedication."],
+        ["> UNLOCKED: \"Thousand\"", "Four digits.", "This is who you are now."]
+      ]
+    }
+  ]
+}

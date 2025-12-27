@@ -4,6 +4,7 @@ import SwiftData
 struct ShotFormView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @Environment(AchievementTracker.self) private var achievementTracker
     @Query(sort: \Bean.createdAt, order: .reverse) private var beans: [Bean]
     @AppStorage("lastSelectedBeanID") private var lastSelectedBeanID: String = ""
     @AppStorage("lastGrindSetting") private var lastGrindSetting: Int = 15
@@ -198,11 +199,19 @@ struct ShotFormView: View {
             modelContext.insert(shot)
         }
         try? modelContext.save()
+        checkAchievementsAfterSave()
         dismiss()
+    }
+
+    private func checkAchievementsAfterSave() {
+        let descriptor = FetchDescriptor<Shot>()
+        guard let allShots = try? modelContext.fetch(descriptor) else { return }
+        achievementTracker.checkAchievements(shots: allShots, modelContext: modelContext)
     }
 }
 
 #Preview {
     ShotFormView()
-        .modelContainer(for: [Shot.self, Bean.self], inMemory: true)
+        .environment(AchievementTracker())
+        .modelContainer(for: [Shot.self, Bean.self, Achievement.self], inMemory: true)
 }

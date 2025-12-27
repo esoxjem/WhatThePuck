@@ -6,18 +6,20 @@ struct MainTabView: View {
         TabView {
             ShotListView()
                 .tabItem {
-                    Label("Shots", systemImage: "list.bullet")
+                    Image(systemName: "list.bullet")
                 }
 
             TimerView()
                 .tabItem {
-                    Label("Timer", systemImage: "timer")
+                    Image(systemName: "timer")
                 }
 
-            BeanListView()
-                .tabItem {
-                    Label("Beans", systemImage: "leaf")
-                }
+            NavigationStack {
+                AchievementGalleryView()
+            }
+            .tabItem {
+                Image(systemName: "trophy")
+            }
         }
     }
 }

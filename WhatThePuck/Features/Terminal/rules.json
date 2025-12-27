@@ -12,10 +12,29 @@
     "day_of_week": "Current day (1=Monday, 7=Sunday)",
     "month": "Current month (1-12)",
     "always": "Always matches (for fallback)",
-    "bean_count": "Total beans added by user"
+    "bean_count": "Total beans added by user",
+    "unique_beans_used": "Number of different beans with shots logged",
+    "grind_settings_used": "Number of different grind settings used",
+    "just_unlocked_achievement": "ID of achievement just unlocked (or null)",
+    "achievement_progress": "Percentage progress toward closest achievement",
+    "retroactive_unlock_count": "Number of achievements retroactively unlocked on app launch"
   },
   "operators": ["eq", "neq", "gt", "gte", "lt", "lte", "between", "in"],
   "rules": [
+    {
+      "id": "retroactive_unlock",
+      "priority": 115,
+      "condition": {
+        "type": "retroactive_unlock_count",
+        "operator": "gt",
+        "value": 0
+      },
+      "messages": [
+        ["Historical data synced.", "Achievements unlocked."],
+        ["Legacy shots analyzed.", "Progress restored."],
+        ["Data scan complete.", "Achievements updated."]
+      ]
+    },
     {
       "id": "onboarding_no_beans",
       "priority": 110,
@@ -26,7 +45,31 @@
         ]
       },
       "messages": [
-        ["Welcome to espresso hell.", "Let's add your coffee beans."]
+        ["Welcome to espresso hell.", "Let's add your coffee beans."],
+        ["No beans loaded.", "We should fix that."],
+        ["The grinder awaits.", "But first, beans."],
+        ["Step one: acquire beans.", "Everything else is just physics."],
+        ["Empty hopper energy.", "Let's change that."],
+        ["Before the extraction, the selection."],
+        ["A journey of a thousand shots begins with a single bag."],
+        ["No beans, no dreams.", "Add some."],
+        ["The machine is ready.", "Your beans are not."],
+        ["First things first.", "Coffee."],
+        ["Your espresso journey starts here.", "With beans."],
+        ["Blank slate.", "Time to add your first roast."],
+        ["The portafilter is patient.", "But it needs beans."],
+        ["No coffee tracked yet.", "Let's change that."],
+        ["Zero beans.", "Infinite potential."],
+        ["Fresh start.", "Add your beans to begin."],
+        ["The app is ready.", "Your hopper is not."],
+        ["Before we dial in, we stock up."],
+        ["Step zero: have beans.", "You're at step zero."],
+        ["Loading beans is the first ritual."],
+        ["Empty pantry.", "Let's fill it."],
+        ["The espresso gods demand tribute.", "Beans are tribute."],
+        ["No roast selected.", "That's solvable."],
+        ["Your coffee library is empty.", "Start collecting."],
+        ["Caffeine requires inventory.", "Let's build some."]
       ]
     },
     {
@@ -39,7 +82,31 @@
         ]
       },
       "messages": [
-        ["{{bean.displayName}} loaded.", "{{bean.roastAge}}", "Pull your first shot."]
+        ["{{bean.displayName}} loaded.", "{{bean.roastAge}}", "Pull your first shot."],
+        ["Beans ready.", "{{bean.roastAge}}", "Time for shot number one."],
+        ["{{bean.displayName}} standing by.", "Let's see what it's got."],
+        ["Hopper loaded.", "Portafilter empty.", "Fix that."],
+        ["{{bean.roastAge}}", "The variables are set.", "Now execute."],
+        ["{{bean.displayName}} awaits judgment.", "Pull a shot."],
+        ["Coffee acquired.", "Data collection begins now."],
+        ["First bag loaded.", "First shot pending."],
+        ["{{bean.displayName}} reporting for duty.", "{{bean.roastAge}}"],
+        ["Beans: check.", "Shot: pending.", "Let's go."],
+        ["Your first roast is ready.", "Your first shot is not."],
+        ["{{bean.roastAge}}", "Fresh enough.", "Pull something."],
+        ["Coffee in the system.", "Now add espresso data."],
+        ["{{bean.displayName}}.", "Dial it in."],
+        ["Loaded and waiting.", "The puck won't prep itself."],
+        ["Origin story starts here.", "One shot at a time."],
+        ["{{bean.displayName}} locked in.", "Show us what you've got."],
+        ["Setup complete.", "Now the real work begins."],
+        ["Beans registered.", "Time to make them useful."],
+        ["{{bean.roastAge}}", "The clock is ticking on freshness."],
+        ["First coffee logged.", "First extraction next."],
+        ["The raw materials are here.", "Time to transform them."],
+        ["{{bean.displayName}} initialized.", "Awaiting first extraction."],
+        ["Coffee loaded.", "Expectations managed.", "Pull shot."],
+        ["Your beans are ready.", "Your skills are about to be tested."]
       ]
     },
     {
@@ -52,7 +119,30 @@
       },
       "messages": [
         ["Shot #1. The journey begins."],
-        ["Welcome.", "Every expert was once a beginner with a bottomless portafilter."]
+        ["Welcome.", "Every expert was once a beginner with a bottomless portafilter."],
+        ["First extraction.", "First data point."],
+        ["The inaugural shot.", "No pressure."],
+        ["Shot one of many.", "Hopefully."],
+        ["Your baseline is being established.", "Right now."],
+        ["Day one.", "Shot one.", "Chapter one."],
+        ["The first of its kind.", "Make it count."],
+        ["Entry number one in the log."],
+        ["Genesis shot.", "Let's see what you've got."],
+        ["This is where the data starts."],
+        ["First shot jitters are normal.", "Channel them."],
+        ["The opening act.", "More to follow."],
+        ["Calibration begins here."],
+        ["Shot number one.", "The control group."],
+        ["Your espresso autobiography starts now."],
+        ["The first variable is you.", "Let's go."],
+        ["Welcome to the log.", "Population: one shot."],
+        ["Initial extraction.", "Initial expectations: low."],
+        ["The machine doesn't know it's your first.", "Good."],
+        ["Shot one.", "The learning curve starts here."],
+        ["First puck.", "First lesson."],
+        ["Every long journey begins with terrible extraction.", "Usually."],
+        ["The beans don't know you're new.", "Fake confidence."],
+        ["Logging shot #1.", "Many more await."]
       ]
     },
     {
@@ -64,7 +154,31 @@
         "value": 10
       },
       "messages": [
-        ["Double digits.", "You're not just curious anymore."]
+        ["Double digits.", "You're not just curious anymore."],
+        ["Ten shots in.", "This is becoming a habit."],
+        ["Shot 10.", "The honeymoon phase."],
+        ["First milestone.", "Many more to come."],
+        ["Ten down.", "Your muscle memory is forming."],
+        ["Double digits unlocked.", "Keep going."],
+        ["Ten shots of data.", "Patterns are emerging."],
+        ["The first ten are the hardest.", "Or the easiest.", "Depends."],
+        ["Shot 10.", "Commitment confirmed."],
+        ["Ten entries in the log.", "You're serious now."],
+        ["A solid start.", "Ten more."],
+        ["Ten shots.", "Statistically significant.", "Almost."],
+        ["The first decimal milestone.", "Celebrated."],
+        ["You've officially started.", "Ten times over."],
+        ["Ten shots deep.", "No turning back."],
+        ["Shot 10.", "The experimentation phase."],
+        ["Double digits.", "Single-minded focus."],
+        ["Ten extractions.", "Ten lessons."],
+        ["The grinder knows your name now."],
+        ["Ten shots.", "Your palate is waking up."],
+        ["First ten down.", "Ninety more to triple digits."],
+        ["Ten data points.", "Still noisy.", "Keep pulling."],
+        ["Shot 10.", "You're past the tutorial."],
+        ["A small milestone.", "Still a milestone."],
+        ["Ten.", "The first of many round numbers."]
       ]
     },
     {
@@ -76,7 +190,31 @@
         "value": 50
       },
       "messages": [
-        ["50 shots logged.", "You've probably wasted less coffee than most people ever dial in."]
+        ["50 shots logged.", "You've probably wasted less coffee than most people ever dial in."],
+        ["Halfway to a hundred.", "You know things now."],
+        ["Fifty shots.", "Your opinions have merit."],
+        ["Shot 50.", "The intermediate plateau."],
+        ["Half a century of extractions.", "Respect."],
+        ["Fifty data points.", "Real patterns emerge."],
+        ["50 shots deep.", "You've earned your preferences."],
+        ["The halfway mark.", "To the first hundred, anyway."],
+        ["Fifty shots of refinement."],
+        ["Shot 50.", "The grinder answers to you now."],
+        ["Fifty logged.", "Your technique has a signature."],
+        ["50 shots.", "That's not beginner numbers."],
+        ["Halfway to triple digits.", "Keep the momentum."],
+        ["Fifty extractions.", "Your sink shot ratio is improving."],
+        ["Shot 50.", "You're in the data now."],
+        ["Fifty shots of calibration.", "More to come."],
+        ["50 logged.", "You've outlasted most hobbyists."],
+        ["Fifty shots in.", "The randomness is decreasing."],
+        ["Shot 50.", "Your palate is calibrated."],
+        ["Fifty.", "A proper sample size."],
+        ["50 shots.", "You speak espresso now."],
+        ["Halfway point.", "Or the beginning.", "Perspective."],
+        ["Fifty extractions logged.", "That's commitment."],
+        ["Shot 50.", "The variance is tightening."],
+        ["Fifty shots.", "More experience than most baristas."]
       ]
     },
     {
@@ -89,7 +227,30 @@
       },
       "messages": [
         ["Triple digits.", "You've earned your opinions about grinders."],
-        ["100 shots.", "Your palate is not the problem anymore."]
+        ["100 shots.", "Your palate is not the problem anymore."],
+        ["The century mark.", "You're official now."],
+        ["100 extractions.", "Expert territory."],
+        ["Shot 100.", "The training wheels are off."],
+        ["One hundred shots logged.", "This is not a phase."],
+        ["Triple digits unlocked.", "Respect earned."],
+        ["100 shots.", "You've seen things."],
+        ["The first hundred.", "Foundation laid."],
+        ["Shot 100.", "Your technique has matured."],
+        ["A hundred shots of wisdom.", "Or stubbornness.", "Both work."],
+        ["100 logged.", "You troubleshoot yourself now."],
+        ["Triple digits.", "The grinder fears you."],
+        ["One hundred data points.", "You are the algorithm."],
+        ["Shot 100.", "Congratulations.", "Now do it again."],
+        ["100 shots.", "You know bad from good from great."],
+        ["The hundred club.", "Membership confirmed."],
+        ["Shot 100.", "The variance in your shots is intentional now."],
+        ["100 extractions.", "Each one taught you something."],
+        ["Triple digits.", "You've paid your dues."],
+        ["One hundred shots.", "That's not luck.", "That's practice."],
+        ["Shot 100.", "You've earned your WDT tool opinions."],
+        ["100 logged.", "Your mistakes are educated now."],
+        ["Triple digits.", "The beans respect you."],
+        ["100 shots.", "You're not chasing.", "You're refining."]
       ]
     },
     {
@@ -101,7 +262,31 @@
         "value": 500
       },
       "messages": [
-        ["500.", "At this point, you're basically doing R&D."]
+        ["500.", "At this point, you're basically doing R&D."],
+        ["Half a thousand shots.", "You're in the archives now."],
+        ["500 shots logged.", "Write the book already."],
+        ["Shot 500.", "This is beyond hobby."],
+        ["Five hundred extractions.", "You've seen every failure mode."],
+        ["500.", "The data is undeniable."],
+        ["Shot 500.", "You could teach a class."],
+        ["Half a thousand.", "Your grinder should have a name by now."],
+        ["500 shots.", "The machine is an extension of you."],
+        ["Five hundred logged.", "Mastery in progress."],
+        ["Shot 500.", "You debug by sound now."],
+        ["500 extractions.", "That's a research paper."],
+        ["Half a thousand shots.", "The sink shot ratio is approaching zero."],
+        ["500.", "You're not a hobbyist.", "You're a practitioner."],
+        ["Shot 500.", "The beans confide in you."],
+        ["Five hundred shots.", "Your technique has a legacy."],
+        ["500 logged.", "Respect from the espresso gods."],
+        ["Half a thousand.", "The puck fears your tamper."],
+        ["Shot 500.", "You know what you like.", "And why."],
+        ["500 extractions.", "Every variable is understood."],
+        ["Five hundred shots.", "The learning curve is behind you."],
+        ["500.", "You've made every mistake.", "Twice.", "On purpose."],
+        ["Shot 500.", "The endgame is just more espresso."],
+        ["Half a thousand logged.", "This is what dedication looks like."],
+        ["500 shots.", "You're the control group now."]
       ]
     },
     {
@@ -113,7 +298,31 @@
         "value": true
       },
       "messages": [
-        ["First dial-in.", "Screenshot this feeling."]
+        ["First dial-in.", "Screenshot this feeling."],
+        ["Dialed in for the first time.", "It's real now."],
+        ["First perfect shot.", "Remember the variables."],
+        ["You found it.", "The sweet spot exists."],
+        ["First dial-in achieved.", "Chase this feeling forever."],
+        ["The god shot reveals itself.", "Write down everything."],
+        ["Dialed in.", "This is what you came for."],
+        ["First taste of perfection.", "Addictive, isn't it?"],
+        ["You've cracked the code.", "For now."],
+        ["The espresso smiled back.", "First time."],
+        ["Dialed in.", "The variables aligned.", "Briefly."],
+        ["First perfect extraction.", "The game changes now."],
+        ["This is what they talk about.", "You get it now."],
+        ["The dial-in high.", "Better than caffeine."],
+        ["First lock.", "You'll chase this forever."],
+        ["Dialed in.", "Your palate was right."],
+        ["The machine cooperated.", "Finally."],
+        ["First dial-in logged.", "Evidence of possibility."],
+        ["You've tasted the summit.", "Once."],
+        ["The perfect shot exists.", "You proved it."],
+        ["First dial-in.", "The baseline is set."],
+        ["Everything clicked.", "Document it."],
+        ["Dialed in.", "The beans revealed themselves."],
+        ["First taste of mastery.", "Temporary.", "But real."],
+        ["The grind was right.", "The dose was right.", "You were right."]
       ]
     },
     {
@@ -126,7 +335,30 @@
       },
       "messages": [
         ["Long time.", "New bag, clean slate."],
-        ["Back from the dead.", "Respect the rust."]
+        ["Back from the dead.", "Respect the rust."],
+        ["A month away.", "The machine remembers you."],
+        ["30 days.", "Like a new beginning.", "Because it is."],
+        ["Long hiatus.", "Fresh perspective."],
+        ["The grinder collected dust.", "Shake it off."],
+        ["A month of not pulling shots.", "That ends now."],
+        ["Back after 30+ days.", "Start from scratch."],
+        ["Long break.", "No judgment.", "Just espresso."],
+        ["The beans missed you.", "Get new ones."],
+        ["A month away from the puck.", "Welcome home."],
+        ["Extended absence.", "Fresh start energy."],
+        ["30 days since last extraction.", "Ancient history."],
+        ["The portafilter waited.", "Patiently."],
+        ["Back from sabbatical.", "Time to recalibrate everything."],
+        ["Month-long break.", "The variables have reset."],
+        ["You've been gone.", "The coffee world kept spinning."],
+        ["30+ days away.", "Start like it's day one."],
+        ["Long absence.", "Short memory.", "Start fresh."],
+        ["The espresso gods forgive absence.", "Mostly."],
+        ["A month of no shots.", "The drought ends today."],
+        ["Extended break complete.", "Training resumes."],
+        ["30 days later.", "Same passion.", "Rustier technique."],
+        ["Back from the wilderness.", "The grinder awaits."],
+        ["Month-long hiatus over.", "Let's see what you remember."]
       ]
     },
     {
@@ -139,7 +371,30 @@
       },
       "messages": [
         ["A week away.", "Beans have probably degassed.", "Start fresh."],
-        ["The puck doesn't hold grudges.", "Let's go."]
+        ["The puck doesn't hold grudges.", "Let's go."],
+        ["7+ days.", "Time to re-dial."],
+        ["Week-long break.", "The grinder settings are stale now."],
+        ["Been a while.", "Muscle memory fades fast."],
+        ["Over a week away.", "Expect some adjustment."],
+        ["The machine kept warm.", "You went cold."],
+        ["Week or more since last shot.", "Recalibration time."],
+        ["Extended break.", "Fresh approach required."],
+        ["A week plus.", "The variables have drifted."],
+        ["Gone for a bit.", "Welcome back."],
+        ["7 to 29 days.", "The in-between zone."],
+        ["Not gone long.", "Not here either."],
+        ["Week-ish break.", "Start conservative."],
+        ["The beans aged.", "So did your last settings."],
+        ["Over a week away.", "Under a month.", "Recalibrate."],
+        ["Break taken.", "Lessons possibly forgotten."],
+        ["A week or more.", "The puck awaits."],
+        ["Mid-length hiatus.", "Back to basics."],
+        ["Gone but not forgotten.", "The grinder remembers."],
+        ["7+ days since last pull.", "Shake off the rust."],
+        ["Week-long absence.", "Time to dial fresh."],
+        ["You took a break.", "The beans didn't wait."],
+        ["Over a week.", "Under a month.", "The awkward middle."],
+        ["Been away.", "Been thinking about espresso.", "Probably."]
       ]
     },
     {
@@ -152,7 +407,31 @@
       },
       "messages": [
         ["Been a few days.", "The grinder missed you."],
-        ["Welcome back.", "Let's recalibrate."]
+        ["Welcome back.", "Let's recalibrate."],
+        ["3 to 6 days away.", "Short break.", "Quick reset."],
+        ["A few days off.", "Not enough to forget."],
+        ["Brief hiatus.", "The settings should still work."],
+        ["Gone a few days.", "The machine remembers you."],
+        ["Short break.", "Minimal rust expected."],
+        ["3-6 days.", "The muscle memory is still there."],
+        ["Brief absence.", "Back in action."],
+        ["A few days away.", "The beans are still good.", "Probably."],
+        ["Short stint away.", "Easy comeback."],
+        ["3 to 6 days off.", "Not long enough to worry."],
+        ["Brief pause.", "Resume position."],
+        ["A few days.", "The grind should still be close."],
+        ["Short break taken.", "Momentum preserved."],
+        ["Gone briefly.", "Back quickly."],
+        ["3-6 day gap.", "Minor adjustment territory."],
+        ["A short while.", "Welcome back."],
+        ["Brief intermission.", "Act two begins."],
+        ["Few days off.", "The portafilter waited."],
+        ["Short absence.", "No drama.", "Just dial."],
+        ["3 to 6 days.", "Quick recalibration zone."],
+        ["Been a bit.", "Not too long.", "Let's go."],
+        ["Brief break.", "Fresh eyes.", "Same obsession."],
+        ["A few days away.", "Ready to return."],
+        ["Short gap.", "Long enthusiasm.", "Pull a shot."]
       ]
     },
     {
@@ -164,7 +443,31 @@
         "value": 30
       },
       "messages": [
-        ["30 days.", "You're not chasing the god shot.", "You're just showing up."]
+        ["30 days.", "You're not chasing the god shot.", "You're just showing up."],
+        ["Month-long streak.", "This is identity now."],
+        ["30 consecutive days.", "You're in the data."],
+        ["A full month.", "Discipline personified."],
+        ["30 days running.", "The habit is unbreakable."],
+        ["Month streak achieved.", "Legendary status."],
+        ["30 days straight.", "The grinder knows your schedule."],
+        ["A month of daily shots.", "That's not hobby.", "That's practice."],
+        ["30+ days.", "You don't miss days anymore."],
+        ["Month-long dedication.", "The beans bow to you."],
+        ["30 consecutive.", "The streak is the point now."],
+        ["A month of showing up.", "Every single day."],
+        ["30 days.", "The machine expects you."],
+        ["Month streak.", "You've built something."],
+        ["30 days straight.", "Missing isn't an option anymore."],
+        ["A full month of espresso.", "Daily.", "Committed."],
+        ["30 days running.", "The ritual is sacred."],
+        ["Month-long streak.", "Respect from the coffee gods."],
+        ["30 consecutive days.", "You're not stopping now."],
+        ["A month of discipline.", "A month of espresso."],
+        ["30+ days.", "The streak defines the routine."],
+        ["Month streak.", "Few achieve this.", "You did."],
+        ["30 days of daily practice.", "Mastery in progress."],
+        ["A month straight.", "The commitment is real."],
+        ["30 days.", "The streak is its own reward."]
       ]
     },
     {
@@ -176,7 +479,31 @@
         "value": 7
       },
       "messages": [
-        ["A full week.", "Your muscle memory is forming."]
+        ["A full week.", "Your muscle memory is forming."],
+        ["7 days straight.", "The habit is taking hold."],
+        ["Week-long streak.", "You're building something."],
+        ["Seven consecutive days.", "Momentum established."],
+        ["A week of daily espresso.", "This is how it starts."],
+        ["7 days running.", "The routine is real now."],
+        ["Full week achieved.", "Keep the streak alive."],
+        ["Seven days.", "The commitment is showing."],
+        ["Week streak.", "Your technique is stabilizing."],
+        ["7 straight days.", "The machine knows your rhythm."],
+        ["A week of showing up.", "Respect."],
+        ["Seven days running.", "The grinder expects you now."],
+        ["Week-long dedication.", "It's becoming automatic."],
+        ["7 days.", "A habit in the making."],
+        ["One week straight.", "The streak begins to matter."],
+        ["Seven consecutive.", "The daily ritual is set."],
+        ["Week streak achieved.", "Don't break it now."],
+        ["7 days of practice.", "7 days of progress."],
+        ["A full week.", "The variables are memorized."],
+        ["Seven straight.", "Consistency is a muscle.", "You're flexing it."],
+        ["Week-long streak.", "This is how experts are made."],
+        ["7 days running.", "The puck recognizes you."],
+        ["One week down.", "Many more possible."],
+        ["Seven days.", "A significant streak."],
+        ["Week streak.", "The hardest part is behind you."]
       ]
     },
     {
@@ -188,7 +515,31 @@
         "value": 3
       },
       "messages": [
-        ["3 days running.", "Consistency is a variable too."]
+        ["3 days running.", "Consistency is a variable too."],
+        ["Three straight days.", "A pattern is forming."],
+        ["3-day streak.", "The beginning of something."],
+        ["Three days.", "Not a coincidence anymore."],
+        ["3 consecutive.", "The ritual is starting."],
+        ["Three in a row.", "Keep the momentum."],
+        ["3-day streak achieved.", "Small but significant."],
+        ["Three straight.", "You're building a habit."],
+        ["3 days.", "The grinder is getting used to you."],
+        ["Three consecutive days.", "Routine emerging."],
+        ["3 running.", "Don't break it now."],
+        ["Three days straight.", "The foundation is laid."],
+        ["3-day streak.", "Commitment begins here."],
+        ["Three days.", "A proper streak."],
+        ["3 consecutive.", "More than random."],
+        ["Three in a row.", "The muscle memory appreciates it."],
+        ["3 days running.", "You showed up.", "Three times."],
+        ["Three straight days.", "The streak is young.", "But real."],
+        ["3-day run.", "Keep it going."],
+        ["Three days.", "Consistency unlocked."],
+        ["3 days.", "The machine noticed."],
+        ["Three consecutive.", "Practice becoming habit."],
+        ["3 running.", "A streak worth protecting."],
+        ["Three straight.", "The start of something good."],
+        ["3 days in a row.", "The daily espresso life begins."]
       ]
     },
     {
@@ -201,7 +552,31 @@
       },
       "messages": [
         ["Locked in.", "Repeat it or ride the high."],
-        ["Yesterday's shot was gold.", "Now prove it wasn't luck."]
+        ["Yesterday's shot was gold.", "Now prove it wasn't luck."],
+        ["Last shot was dialed.", "Keep the streak alive."],
+        ["You know what worked.", "Do it again."],
+        ["Dialed in yesterday.", "Momentum is real."],
+        ["Last shot nailed it.", "Don't overthink this one."],
+        ["You left on a high.", "Return the same way."],
+        ["The last one was perfect.", "Pressure's on."],
+        ["Previous shot: flawless.", "Current shot: pending."],
+        ["Last extraction was gold.", "Consistency awaits."],
+        ["You ended well.", "Start well."],
+        ["Dialed in last time.", "Repeat the recipe."],
+        ["The variables haven't changed.", "Neither should you."],
+        ["Last shot was money.", "Make it two."],
+        ["You know what success tastes like.", "Recently."],
+        ["Previous dial-in logged.", "This one wants to match."],
+        ["The last shot set the bar.", "Clear it."],
+        ["Dialed in yesterday.", "The muscle memory is fresh."],
+        ["Last one was right.", "Trust the process."],
+        ["You cracked it recently.", "The code still works."],
+        ["Previous shot: dialed.", "Next shot: challenging you."],
+        ["The last extraction was perfect.", "No pressure."],
+        ["You found the zone.", "Stay in it."],
+        ["Last shot was proof.", "This one is confirmation."],
+        ["Dialed in recently.", "The odds are in your favor."],
+        ["The previous shot remembers.", "So should you."]
       ]
     },
     {
@@ -215,7 +590,30 @@
       "messages": [
         ["Rough stretch.", "Try 1 click coarser.", "Or finer. Chaos is a ladder."],
         ["Sink shots build character."],
-        ["Still here after 3 bad ones?", "That's the mentality."]
+        ["Still here after 3 bad ones?", "That's the mentality."],
+        ["The struggle is part of it.", "Keep pulling."],
+        ["Bad streak.", "Good data.", "Same thing."],
+        ["Three in a row.", "Time to change a variable."],
+        ["Channeling happens.", "So does recovery."],
+        ["The puck is testing you.", "Don't flinch."],
+        ["Consecutive fails.", "Consecutive lessons."],
+        ["Every expert has lived this.", "Multiple times."],
+        ["Bad shots are just research.", "Expensive research."],
+        ["The beans are not the enemy.", "Usually."],
+        ["Triple sink shots.", "Change something.", "Anything."],
+        ["Rough patch.", "These end.", "Eventually."],
+        ["Three bad ones.", "The fourth could break the streak."],
+        ["Humbling sequence.", "Noted."],
+        ["The variables are conspiring.", "Conspire back."],
+        ["Bad streak logged.", "So is your persistence."],
+        ["Channeling? Dosing? Temp?", "Pick one and adjust."],
+        ["Three duds.", "Time for a reset."],
+        ["The sink is earning its keep.", "For now."],
+        ["Consistency in failure is still consistency.", "Silver lining."],
+        ["Bad shots happen.", "Bad streaks end."],
+        ["Triple trouble.", "Triple opportunity to learn."],
+        ["The grinder doesn't care about your feelings.", "Adjust it anyway."],
+        ["Rough shots.", "Tough lessons.", "Same journey."]
       ]
     },
     {
@@ -230,7 +628,29 @@
       "messages": [
         ["Monday morning.", "The most important shot of the week."],
         ["Monday, 9am energy.", "Let the espresso do the talking."],
-        ["Start the week with a clean puck and low expectations."]
+        ["Start the week with a clean puck and low expectations."],
+        ["Monday AM.", "The week depends on this shot."],
+        ["First morning of the week.", "Make it count."],
+        ["Monday morning espresso.", "Non-negotiable."],
+        ["The week begins.", "So does the grind."],
+        ["Monday morning.", "Reset everything.", "Especially the grinder."],
+        ["AM Monday.", "The productivity shot."],
+        ["Monday morning vibes.", "Espresso required."],
+        ["Start of week.", "Start of fresh beans.", "Hopefully."],
+        ["Monday AM extraction.", "Set the tone."],
+        ["The first morning.", "The first shot.", "Both crucial."],
+        ["Monday morning.", "When caffeine is medicine."],
+        ["Week opener.", "Make it strong."],
+        ["Monday AM.", "No room for sink shots."],
+        ["Morning one of the work week.", "Dial it in."],
+        ["Monday morning.", "The reset button."],
+        ["Start the week caffeinated.", "Obviously."],
+        ["Monday AM.", "The calendar is full.", "The cup should be too."],
+        ["Monday morning extraction.", "Survival mode activated."],
+        ["The week starts now.", "So does your focus."],
+        ["Monday morning.", "Espresso before email."],
+        ["AM Monday.", "Everything depends on this."],
+        ["First work morning.", "First real shot.", "Make it matter."]
       ]
     },
     {
@@ -244,7 +664,30 @@
       },
       "messages": [
         ["Friday night espresso.", "You've earned the chaos."],
-        ["End of week.", "Experimental shots allowed."]
+        ["End of week.", "Experimental shots allowed."],
+        ["Friday evening.", "The rules relax."],
+        ["Week's end approaching.", "Celebratory shot incoming."],
+        ["Friday PM.", "Tomorrow is not a work day.", "Act accordingly."],
+        ["Evening espresso on Friday.", "The week's reward."],
+        ["Friday night.", "Experimental mode unlocked."],
+        ["End of week extraction.", "Less precision.", "More vibes."],
+        ["Friday evening.", "The grinder can party too."],
+        ["Week complete.", "Almost.", "Caffeinate the finish."],
+        ["Friday PM shots.", "Different energy entirely."],
+        ["Evening Friday.", "The weekend warmup."],
+        ["Friday night espresso.", "Because you can."],
+        ["End of week.", "New recipes allowed."],
+        ["Friday evening.", "The pressure is off."],
+        ["PM Friday.", "The week is behind you.", "The shot is ahead."],
+        ["Friday night extraction.", "No early meetings tomorrow."],
+        ["Weekend eve.", "Treat yourself."],
+        ["Friday evening.", "The fun shots start now."],
+        ["End of week caffeine.", "Recreational purposes."],
+        ["Friday PM.", "The serious week becomes play."],
+        ["Evening espresso.", "Friday edition.", "Wild card."],
+        ["Friday night.", "The variables are suggestions now."],
+        ["Week's end.", "Shot's beginning.", "Good vibes."],
+        ["Friday evening.", "Pull something interesting."]
       ]
     },
     {
@@ -259,7 +702,29 @@
       "messages": [
         ["Weekend morning.", "The sacred window."],
         ["No alarms.", "No rushing.", "Just dialing in."],
-        ["Saturday coffee is a ritual, not a task."]
+        ["Saturday coffee is a ritual, not a task."],
+        ["Weekend AM.", "The pressure is off.", "The espresso is on."],
+        ["Morning without meetings.", "Morning with meaning."],
+        ["Weekend morning extraction.", "Pure luxury."],
+        ["No schedule.", "Just the puck.", "And you."],
+        ["Weekend mornings exist for this."],
+        ["AM weekend.", "The relaxed dial-in."],
+        ["Saturday or Sunday morning.", "Both sacred."],
+        ["Weekend morning espresso.", "Unhurried.", "Intentional."],
+        ["No work today.", "Just work on your shot."],
+        ["Morning weekend vibes.", "The best kind of practice."],
+        ["Weekend AM.", "When espresso is meditation."],
+        ["The slow morning.", "The careful extraction."],
+        ["Weekend morning.", "Time is a luxury.", "Use it."],
+        ["No commute.", "Just coffee.", "Perfect."],
+        ["Weekend AM extraction.", "The pace you deserve."],
+        ["Saturday/Sunday morning.", "The ritual gets the time it needs."],
+        ["Weekend morning.", "Experiment freely."],
+        ["Morning without stress.", "Espresso without rush."],
+        ["Weekend AM.", "The grinder has your full attention."],
+        ["The weekend extraction.", "Worth waiting for."],
+        ["Morning off.", "Machine on.", "Balance achieved."],
+        ["Weekend morning.", "This is why you bought the setup."]
       ]
     },
     {
@@ -349,7 +814,30 @@
       },
       "messages": [
         ["Week-long streak AND dialed in?", "You're dangerous."],
-        ["Consistency meets precision.", "This is the way."]
+        ["Consistency meets precision.", "This is the way."],
+        ["Seven days straight and locked in.", "Elite status."],
+        ["Streak plus dial-in.", "The combo everyone wants."],
+        ["A week of dedication rewarded with perfection."],
+        ["Showing up daily and nailing it.", "Rare air."],
+        ["Streak mode activated.", "Dial-in mode activated.", "Legend."],
+        ["Seven days and counting.", "Perfect shot to boot."],
+        ["Consistency and quality.", "You've got both."],
+        ["The daily practice is paying off.", "Obviously."],
+        ["Week-long streak with a dial-in finish.", "Chef's kiss."],
+        ["Routine meets excellence.", "Keep going."],
+        ["Seven days of showing up.", "One dialed shot to prove it."],
+        ["Streak and quality.", "The double achievement."],
+        ["A week of work.", "A moment of perfection."],
+        ["Daily dedication rewarded.", "Finally."],
+        ["The streak continues.", "The dial-in confirms it."],
+        ["Seven straight days.", "Peak extraction.", "Peak you."],
+        ["Consistency breeds quality.", "Case in point."],
+        ["A week-long habit.", "A perfectly dialed shot.", "Connection."],
+        ["Showing up every day.", "Dialing in when it matters."],
+        ["The streak is real.", "So is the skill."],
+        ["Seven days.", "One perfect shot.", "Worth it."],
+        ["Streak preservation plus dial-in.", "Overachiever energy."],
+        ["A week of effort.", "A shot of excellence."]
       ]
     },
     {
@@ -363,7 +851,176 @@
       },
       "messages": [
         ["100+ shots and still getting humbled.", "Espresso doesn't care about experience."],
-        ["Veterans have bad days too.", "New bag?"]
+        ["Veterans have bad days too.", "New bag?"],
+        ["Triple digits and triple fails.", "Espresso keeps you humble."],
+        ["Even experts channel sometimes.", "Often, actually."],
+        ["100 shots of experience.", "3 shots of humility."],
+        ["The machine doesn't know you're experienced.", "Apparently."],
+        ["Bad streak at your level?", "It's the beans.", "Probably."],
+        ["Century club member having a moment.", "It happens."],
+        ["Experience doesn't prevent bad shots.", "Just explains them faster."],
+        ["100+ logged and still struggling.", "Welcome to espresso."],
+        ["Veteran status doesn't mean perfect shots.", "Just informed failures."],
+        ["The grinder respects no resume.", "Adjust it."],
+        ["Even the experienced get humbled.", "Especially the experienced."],
+        ["Triple digits.", "Triple consecutive fails.", "Irony."],
+        ["Bad shots happen to good people.", "Even with 100+ under your belt."],
+        ["The beans don't care about your shot count."],
+        ["Experienced and struggling.", "Classic espresso moment."],
+        ["100 shots deep and still learning.", "As intended."],
+        ["Veteran getting schooled.", "The curriculum never ends."],
+        ["Shot count high.", "Streak quality low.", "Balance."],
+        ["The puck humbles veterans too.", "Especially veterans."],
+        ["Experience is knowing you'll recover.", "Eventually."],
+        ["100+ shots.", "Still no immunity to bad streaks."],
+        ["The veteran's curse.", "Knowing exactly what went wrong."],
+        ["Century mark reached.", "Humility mark reached too."]
+      ]
+    },
+    {
+      "id": "achievement_steady_hand",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "steady_hand"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Steady Hand\"", "5 shots. Tight grouping.", "You've got control."],
+        ["> UNLOCKED: \"Steady Hand\"", "Variance locked down.", "Consistency is a skill."]
+      ]
+    },
+    {
+      "id": "achievement_clockwork",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "clockwork"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Clockwork\"", "10 shots. Same timing.", "Like a machine."],
+        ["> UNLOCKED: \"Clockwork\"", "Timing dialed.", "Precision acquired."]
+      ]
+    },
+    {
+      "id": "achievement_bean_counter",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "bean_counter"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Bean Counter\"", "10 different beans.", "Explorer status."],
+        ["> UNLOCKED: \"Bean Counter\"", "10 origins tasted.", "The world in a cup."]
+      ]
+    },
+    {
+      "id": "achievement_grind_whisperer",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "grind_whisperer"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Grind Whisperer\"", "10 grind settings explored.", "You speak the language."],
+        ["> UNLOCKED: \"Grind Whisperer\"", "Full grind range used.", "Dial-in veteran."]
+      ]
+    },
+    {
+      "id": "achievement_quick_study",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "quick_study"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Quick Study\"", "3 shots. Bean dialed.", "Some click faster than others."],
+        ["> UNLOCKED: \"Quick Study\"", "New bean. Quick dial-in.", "Intuition is real."]
+      ]
+    },
+    {
+      "id": "achievement_bean_whisperer",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "bean_whisperer"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Bean Whisperer\"", "50 shots. Same origin.", "You know this bean now."],
+        ["> UNLOCKED: \"Bean Whisperer\"", "Deep relationship.", "Bean mastery achieved."]
+      ]
+    },
+    {
+      "id": "achievement_century",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "century"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Century\"", "100 shots.", "Triple digits."],
+        ["> UNLOCKED: \"Century\"", "Shot 100.", "You've wasted maybe 2kg of beans learning. Worth it."]
+      ]
+    },
+    {
+      "id": "achievement_thousand",
+      "priority": 52,
+      "condition": {
+        "type": "just_unlocked_achievement",
+        "operator": "eq",
+        "value": "thousand"
+      },
+      "messages": [
+        ["> UNLOCKED: \"Thousand\"", "1000 shots.", "Dedication."],
+        ["> UNLOCKED: \"Thousand\"", "Four digits.", "This is who you are now."]
+      ]
+    },
+    {
+      "id": "achievement_progress_high",
+      "priority": 40,
+      "condition": {
+        "type": "achievement_progress",
+        "operator": "between",
+        "value": [80, 99]
+      },
+      "messages": [
+        ["Almost there.", "One achievement is within reach."],
+        ["Close to unlocking something.", "Keep going."],
+        ["An achievement beckons.", "You're 80% there."]
+      ]
+    },
+    {
+      "id": "beans_explorer_5",
+      "priority": 45,
+      "condition": {
+        "type": "unique_beans_used",
+        "operator": "eq",
+        "value": 5
+      },
+      "messages": [
+        ["5 beans explored.", "Halfway to Bean Counter."],
+        ["5 different origins.", "The palette expands."],
+        ["5 beans in the log.", "Keep exploring."]
+      ]
+    },
+    {
+      "id": "grind_explorer_5",
+      "priority": 45,
+      "condition": {
+        "type": "grind_settings_used",
+        "operator": "eq",
+        "value": 5
+      },
+      "messages": [
+        ["5 grind settings used.", "Halfway to Grind Whisperer."],
+        ["5 clicks explored.", "The range expands."],
+        ["5 settings tested.", "Keep dialing."]
       ]
     },
     {
@@ -544,7 +1201,30 @@
       },
       "messages": [
         ["Monday.", "The beans understand."],
-        ["Start the week dialed in."]
+        ["Start the week dialed in."],
+        ["Monday.", "The grinder is ready.", "Are you?"],
+        ["First day of the week.", "First shot of many."],
+        ["Monday energy.", "Espresso required."],
+        ["The week begins.", "Begin it caffeinated."],
+        ["Monday.", "Reset and recalibrate."],
+        ["Week starter.", "Strong shot recommended."],
+        ["Monday.", "When discipline meets caffeine."],
+        ["First day.", "Fresh perspective.", "Same beans."],
+        ["Monday.", "The puck doesn't know what day it is."],
+        ["Start of week.", "Dial in the attitude."],
+        ["Monday.", "The machine awaits your return."],
+        ["New week.", "New shots.", "Same obsession."],
+        ["Monday.", "Work week extraction begins."],
+        ["The week is long.", "The espresso is strong."],
+        ["Monday.", "One day closer to the weekend.", "Caffeinate."],
+        ["Week one.", "Day one.", "Shot one."],
+        ["Monday.", "You know what to do."],
+        ["Fresh week.", "Fresh grind.", "Go."],
+        ["Monday.", "The productive week needs fuel."],
+        ["Week launch.", "Espresso launch.", "Simultaneous."],
+        ["Monday.", "The beginning of everything.", "Again."],
+        ["The weekly cycle resets.", "So does your focus."],
+        ["Monday.", "Make it count."]
       ]
     },
     {
@@ -557,7 +1237,30 @@
       },
       "messages": [
         ["Friday shot.", "Make it celebratory."],
-        ["Weekend's calling.", "One more dial-in first."]
+        ["Weekend's calling.", "One more dial-in first."],
+        ["Friday.", "The home stretch."],
+        ["End of work week.", "Almost."],
+        ["Friday.", "The vibe shifts today."],
+        ["Last work day.", "Make it a good one."],
+        ["Friday.", "The weekend is visible."],
+        ["Week's final day.", "Espresso celebration incoming."],
+        ["Friday.", "The rules are more suggestions now."],
+        ["Almost there.", "One more day of shots."],
+        ["Friday.", "The finish line approaches."],
+        ["End of week energy.", "Different.", "Better."],
+        ["Friday.", "The machine knows it too."],
+        ["Work week finale.", "Caffeinate the victory lap."],
+        ["Friday.", "Experimental shots are encouraged."],
+        ["The week ends.", "The weekend begins.", "Espresso bridges both."],
+        ["Friday.", "Less precision.", "More fun."],
+        ["Final work day.", "Maximum espresso vibes."],
+        ["Friday.", "The grinder is ready to party."],
+        ["Week complete.", "Shot pending.", "Let's go."],
+        ["Friday.", "Treat the extraction like a celebration."],
+        ["Last day of the work week.", "Make it memorable."],
+        ["Friday.", "The pressure drops.", "The espresso doesn't."],
+        ["End of week.", "Ease into the weekend.", "Via caffeine."],
+        ["Friday.", "You made it.", "Now caffeinate."]
       ]
     },
     {
@@ -570,7 +1273,30 @@
       },
       "messages": [
         ["Weekend pace.", "No rush, just extraction."],
-        ["No meetings.", "Just channeling to fix."]
+        ["No meetings.", "Just channeling to fix."],
+        ["Weekend.", "The espresso has your full attention."],
+        ["Saturday or Sunday.", "Either way, blessed."],
+        ["Weekend.", "When espresso is leisure."],
+        ["No work.", "All coffee."],
+        ["Weekend extraction.", "The relaxed version."],
+        ["The weekend.", "Time moves differently.", "So do you."],
+        ["Weekend.", "The machine has you to itself."],
+        ["Days off.", "Dial-in on."],
+        ["Weekend.", "Practice without pressure."],
+        ["No deadlines.", "Just extractions."],
+        ["Weekend.", "The puck gets the attention it deserves."],
+        ["Off days.", "On espresso."],
+        ["Weekend.", "When variables can be explored."],
+        ["The weekend ritual.", "Unhurried.", "Intentional."],
+        ["Weekend.", "Time to really dial in."],
+        ["No schedule.", "Just the grinder.", "And peace."],
+        ["Weekend.", "Experiment freely."],
+        ["Days of rest.", "Shots of espresso."],
+        ["Weekend.", "The machine thanks you for the focus."],
+        ["Free time.", "Coffee time.", "Same thing."],
+        ["Weekend.", "When the hobby becomes meditation."],
+        ["No work today.", "Just the work of extraction."],
+        ["Weekend.", "Live your best caffeinated life."]
       ]
     },
     {
@@ -584,7 +1310,29 @@
       "messages": [
         ["Cold hands, hot portafilter."],
         ["Winter espresso hits different."],
-        ["Short days call for short shots."]
+        ["Short days call for short shots."],
+        ["Winter.", "When espresso is survival."],
+        ["Cold months.", "Warm cups."],
+        ["Winter season.", "The machine works overtime."],
+        ["Cold outside.", "Crema inside."],
+        ["Winter extraction.", "Necessary."],
+        ["The cold months.", "Espresso therapy."],
+        ["Winter.", "When caffeine meets warmth."],
+        ["Cold season.", "Hot portafilter.", "Balance."],
+        ["Winter.", "The beans don't mind the cold."],
+        ["Cold days.", "Strong shots."],
+        ["Winter espresso.", "The original hand warmer."],
+        ["The frozen months.", "The flowing espresso."],
+        ["Winter.", "When the machine is the warmest spot."],
+        ["Cold season extraction.", "Maximum cozy."],
+        ["Winter.", "Steam matters more."],
+        ["The cold months.", "The hot ritual."],
+        ["Winter.", "Layer up.", "Dial in.", "Warm up."],
+        ["Cold season.", "Espresso season.", "Same thing."],
+        ["Winter.", "The grind doesn't freeze."],
+        ["Cold outside.", "Hot inside.", "Espresso bridges both."],
+        ["Winter.", "When every shot is a warm hug."],
+        ["The cold season.", "Peak espresso weather."]
       ]
     },
     {
@@ -597,7 +1345,30 @@
       },
       "messages": [
         ["Humid?", "Watch your grind creep finer."],
-        ["Summer beans, summer adjustments."]
+        ["Summer beans, summer adjustments."],
+        ["Summer.", "The grind shifts with humidity."],
+        ["Hot months.", "Iced shots encouraged."],
+        ["Summer season.", "Variables get interesting."],
+        ["Warm outside.", "Warm inside.", "Warm espresso."],
+        ["Summer extraction.", "The beans feel it too."],
+        ["The hot months.", "Adjust accordingly."],
+        ["Summer.", "When iced espresso makes sense."],
+        ["Hot season.", "Cold options available."],
+        ["Summer.", "The humidity affects everything."],
+        ["Warm days.", "Bright shots."],
+        ["Summer espresso.", "The sweat is worth it."],
+        ["The warm months.", "The changing grind."],
+        ["Summer.", "When the machine adds more heat."],
+        ["Hot season extraction.", "Stay hydrated."],
+        ["Summer.", "Air conditioning recommended."],
+        ["The hot months.", "The iced ritual."],
+        ["Summer.", "Espresso in spite of heat."],
+        ["Hot season.", "Maximum dedication."],
+        ["Summer.", "The grind creeps.", "Catch it."],
+        ["Warm months.", "Espresso perseveres."],
+        ["Summer.", "Hot outside.", "Hotter portafilter."],
+        ["The warm season.", "Espresso anyway."],
+        ["Summer.", "When commitment is measured in sweat."]
       ]
     },
     {
@@ -615,7 +1386,25 @@
         ["Every variable is a lever.", "Pull wisely."],
         ["Trust the process.", "Adjust the grind."],
         ["You're not over-extracting.", "You're learning."],
-        ["Somewhere, a WDT tool is waiting."]
+        ["Somewhere, a WDT tool is waiting."],
+        ["The puck tells a story.", "Listen."],
+        ["Extraction is just conversation with beans."],
+        ["The grinder doesn't lie.", "The scale doesn't either."],
+        ["Channeling happens.", "Recovery is optional.", "Learning is mandatory."],
+        ["Every shot is data.", "Every sink shot is education."],
+        ["The machine is ready.", "Are you?"],
+        ["Crema is a byproduct.", "Flavor is the goal."],
+        ["The variables conspire.", "Outsmart them."],
+        ["Pressure is a constant.", "Everything else is negotiable."],
+        ["The beans have opinions.", "Extract them."],
+        ["Dial in or don't.", "There is no try."],
+        ["The portafilter doesn't care about your intentions."],
+        ["Espresso rewards the patient.", "And the obsessive."],
+        ["The sink shot is not failure.", "It's calibration."],
+        ["Coffee in.", "Espresso out.", "Magic in between."],
+        ["The grind is the first truth.", "The taste is the last."],
+        ["Every extraction is a negotiation.", "With physics."],
+        ["The puck remembers your tamp."]
       ]
     }
   ]

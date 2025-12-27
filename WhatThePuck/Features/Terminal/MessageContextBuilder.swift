@@ -1,14 +1,27 @@
 import Foundation
+import SwiftData
+
+struct AchievementContextData {
+    let uniqueBeansUsed: Int
+    let grindSettingsUsed: Int
+    let recentlyUnlockedAchievement: String?
+    let closestAchievementProgressPercent: Int?
+    var retroactiveUnlockCount: Int = 0
+}
 
 enum MessageContextBuilder {
     static func buildContext(
         from shots: [Shot],
         beans: [Bean],
         activeBean: Bean?,
+        achievementData: AchievementContextData? = nil,
         currentDate: Date = .now,
         calendar: Calendar = .current
     ) -> MessageContext {
         let sortedShots = shots.sorted { $0.date > $1.date }
+
+        let uniqueBeans = calculateUniqueBeansUsed(shots: shots)
+        let grindSettings = calculateUniqueGrindSettings(shots: shots)
 
         return MessageContext(
             shotCount: shots.count,
@@ -23,8 +36,21 @@ enum MessageContextBuilder {
             activeBeanRoastLevel: activeBean.map { "\($0.roastLevel.rawValue) roast." },
             hour: calendar.component(.hour, from: currentDate),
             dayOfWeek: convertToISOWeekday(calendar.component(.weekday, from: currentDate)),
-            month: calendar.component(.month, from: currentDate)
+            month: calendar.component(.month, from: currentDate),
+            uniqueBeansUsed: achievementData?.uniqueBeansUsed ?? uniqueBeans,
+            grindSettingsUsed: achievementData?.grindSettingsUsed ?? grindSettings,
+            recentlyUnlockedAchievement: achievementData?.recentlyUnlockedAchievement,
+            closestAchievementProgressPercent: achievementData?.closestAchievementProgressPercent,
+            retroactiveUnlockCount: achievementData?.retroactiveUnlockCount ?? 0
         )
+    }
+
+    private static func calculateUniqueBeansUsed(shots: [Shot]) -> Int {
+        Set(shots.map { $0.bean.persistentModelID }).count
+    }
+
+    private static func calculateUniqueGrindSettings(shots: [Shot]) -> Int {
+        Set(shots.map { $0.grindSetting }).count
     }
 
     private static func calculateDaysSinceLastShot(shots: [Shot], currentDate: Date, calendar: Calendar) -> Int? {

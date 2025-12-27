@@ -40,7 +40,12 @@ struct RuleOperatorTests {
             activeBeanRoastLevel: nil,
             hour: 12,
             dayOfWeek: dayOfWeek,
-            month: 6
+            month: 6,
+            uniqueBeansUsed: 0,
+            grindSettingsUsed: 0,
+            recentlyUnlockedAchievement: nil,
+            closestAchievementProgressPercent: nil,
+            retroactiveUnlockCount: 0
         )
     }
 

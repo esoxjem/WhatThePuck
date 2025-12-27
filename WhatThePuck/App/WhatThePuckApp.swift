@@ -3,6 +3,8 @@ import SwiftData
 
 @main
 struct WhatThePuckApp: App {
+    @State private var achievementTracker = AchievementTracker()
+
     init() {
         AppearanceConfiguration.apply()
     }
@@ -13,7 +15,8 @@ struct WhatThePuckApp: App {
                 .fontDesign(.monospaced)
                 .preferredColorScheme(.dark)
                 .tint(.orange)
+                .environment(achievementTracker)
         }
-        .modelContainer(for: [Shot.self, Bean.self])
+        .modelContainer(for: [Shot.self, Bean.self, Achievement.self])
     }
 }

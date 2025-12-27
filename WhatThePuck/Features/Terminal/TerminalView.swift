@@ -151,6 +151,8 @@ struct TerminalView: View {
     }
 
     private func typeNextCharacter() {
+        guard currentLineIndex < content.lines.count,
+              currentLineIndex < displayedLines.count else { return }
         let currentLine = content.lines[currentLineIndex]
         guard characterIndex < currentLine.count else {
             finishCurrentLine()
@@ -171,6 +173,10 @@ struct TerminalView: View {
     }
 
     private func advanceToNextLine() {
+        guard currentLineIndex + 1 < content.lines.count else {
+            phase = .complete
+            return
+        }
         currentLineIndex += 1
         phase = .typing
     }

@@ -17,6 +17,12 @@ struct MessageContext {
     let dayOfWeek: Int
     let month: Int
 
+    let uniqueBeansUsed: Int
+    let grindSettingsUsed: Int
+    let recentlyUnlockedAchievement: String?
+    let closestAchievementProgressPercent: Int?
+    let retroactiveUnlockCount: Int
+
     func value(for conditionType: ConditionType) -> ContextValue? {
         switch conditionType {
         case .shotCount:
@@ -41,6 +47,16 @@ struct MessageContext {
             return .bool(true)
         case .beanCount:
             return .int(beanCount)
+        case .uniqueBeansUsed:
+            return .int(uniqueBeansUsed)
+        case .grindSettingsUsed:
+            return .int(grindSettingsUsed)
+        case .justUnlockedAchievement:
+            return recentlyUnlockedAchievement.map { .string($0) }
+        case .achievementProgress:
+            return closestAchievementProgressPercent.map { .int($0) }
+        case .retroactiveUnlockCount:
+            return .int(retroactiveUnlockCount)
         }
     }
 }
